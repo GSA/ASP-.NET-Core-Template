@@ -6,69 +6,248 @@
     <title>@ViewData["Title"] - ASP_Core_MVC_Template</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        @* U.S. Web Design System 2.0 *@
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/uswds-2.0.0/css/uswds.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/uswds-2.0.0/css/uswds.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ASP_Core_MVC_Template</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
+<body class="page-page-templates layout-styleguide">
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <section class="usa-banner">
+        <div class="usa-accordion">
+            <header class="usa-banner-header">
+                <div class="usa-grid usa-banner-inner">
+                    <img src="~/uswds-2.0.0/img/favicons/favicon-57.png" alt="U.S. flag">
+                    <p>An official website of the United States government</p>
+                    <button class="usa-accordion-button usa-banner-button"
+                            aria-expanded="false" aria-controls="gov-banner">
+                        <span class="usa-banner-button-text">Here's how you know</span>
+                    </button>
+                </div>
+            </header>
+            <div class="usa-banner-content usa-grid usa-accordion-content" id="gov-banner">
+                <div class="usa-banner-guidance-gov usa-width-one-half">
+                    <img class="usa-banner-icon usa-media_block-img" src="~/uswds-2.0.0/img/icon-dot-gov.svg" alt="Dot gov">
+                    <div class="usa-media_block-body">
+                        <p>
+                            <strong>The .gov means it’s official.</strong>
+                            <br>
+                            Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you’re on a federal government site.
+                        </p>
+                    </div>
+                </div>
+                <div class="usa-banner-guidance-ssl usa-width-one-half">
+                    <img class="usa-banner-icon usa-media_block-img" src="~/uswds-2.0.0/img/icon-https.svg" alt="Https">
+                    <div class="usa-media_block-body">
+                        <p>
+                            <strong>The site is secure.</strong>
+                            <br>
+                            The <strong>https://</strong> ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
+    </section>
+    @*Body section*@
+
+    <header class="usa-header usa-header-basic" role="banner">
+        <div class="usa-nav-container">
+            <div class="usa-navbar">
+                <div class="usa-logo" id="basic-logo">
+                    <em class="usa-logo-text">
+                        <a href="/"
+                           title="Home"
+                           aria-label="Home">
+                            FM IT Services
+                        </a>
+                    </em>
+                </div>
+                <button class="usa-menu-btn">Menu</button>
+            </div>
+
+            @* Navigation bar in the header *@
+            <nav role="navigation" class="usa-nav">
+
+                <button class="usa-nav-close">
+                    <img src="/assets/img/close.svg" alt="close">
+                </button>
+                <ul class="usa-nav-primary usa-accordion">
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="basic-nav-section-one">
+                            <span>MAS  Report</span>
+                        </button>
+                        <ul id="basic-nav-section-one" class="usa-nav-submenu">
+                            <li>
+                                <a href="#">Completed Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">Outstanding Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">ACH Transactions</a>
+                            </li>
+                            <li>
+                                <a href="/SIFT">Credit Card Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">NEAR Batch Breakdown</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="basic-nav-section-two">
+                            <span>GWAC</span>
+                        </button>
+                        <ul id="basic-nav-section-two" class="usa-nav-submenu">
+                            <li>
+                                <a href="#">Completed Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">Outstanding Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">ACH Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">Credit Card Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">NEAR Batch Breakdown</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="basic-nav-section-three">
+                            <span>eGov Travel</span>
+                        </button>
+                        <ul id="basic-nav-section-three" class="usa-nav-submenu">
+                            <li>
+                                <a href="#">Completed Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">Outstanding Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">ACH Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">Credit Card Transactions</a>
+                            </li>
+                            <li>
+                                <a href="#">NEAR Batch Breakdown</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="basic-nav-section-four">
+                            <span>Other Reports</span>
+                        </button>
+                        <ul id="basic-nav-section-four" class="usa-nav-submenu">
+                            <li>
+                                <a href="#">Pay.gov Claim Report</a>
+                            </li>
+                            <li>
+                                <a href="#">Acquisition Workforce Training Fund</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul><form class="usa-search usa-search-small ">
+                    <div role="search">
+                        <label class="usa-sr-only" for="basic-search-field-small">Search small</label>
+                        <input id="basic-search-field-small" type="search" name="search">
+                        <button type="submit">
+                            <span class="usa-sr-only">Search</span>
+                        </button>
+                    </div>
+                </form>
+
+
+            </nav>
+        </div>
+    </header>
+    <div class="usa-overlay"></div>
+    <main id="main-content"></main>
+
+
+
 
     <partial name="_CookieConsentPartial" />
-
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - ASP_Core_MVC_Template</p>
+        <footer class="usa-footer usa-footer-slim" role="contentinfo">
+            <div class="usa-grid usa-footer-return-to-top">
+                <a href="javascript:void(0);">Return to top</a>
+            </div>
+            <div class="usa-footer-primary-section">
+                <div class="usa-grid">
+                    <nav class="usa-footer-nav usa-width-two-thirds">
+                        <ul class="usa-unstyled-list">
+                            <li class="usa-width-one-fourth usa-footer-primary-content">
+                                <a class="usa-footer-primary-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="usa-width-one-fourth usa-footer-primary-content">
+                                <a class="usa-footer-primary-link" href="javascript:void(0);">Customer Services</a>
+                            </li>
+                            <li class="usa-width-one-fourth usa-footer-primary-content">
+                                <a class="usa-footer-primary-link" href="javascript:void(0);">Primary link</a>
+                            </li>
+                            <li class="usa-width-one-fourth usa-footer-primary-content">
+                                <a class="usa-footer-primary-link" href="javascript:void(0);">Primary link</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <address>
+                        <div class="usa-width-one-third">
+                            <div class="usa-footer-primary-content usa-footer-contact_info">
+                                <p>
+                                    <a href="tel:1-800-555-5555">(800) CALL-GOVT</a>
+                                </p>
+                            </div>
+                            <div class="usa-footer-primary-content usa-footer-contact_info">
+                                <p><a href="mailto:info@agency.gov">fmit-support@gsa.gov</a></p>
+                            </div>
+                        </div>
+                    </address>
+                </div>
+            </div>
+            <div class="usa-footer-secondary_section">
+                <div class="usa-grid">
+                    <div class="usa-footer-logo">
+                        <img class="usa-footer-slim-logo-img" src="~/images/gsa/nav-logo.jpg" alt="">
+                        <h3 class="usa-footer-slim-logo-heading">General Services Administration</h3>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/uswds-2.0.0/js/uswds.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

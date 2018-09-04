@@ -1,0 +1,784 @@
+/*
+========================================
+USWDS 2.0 Variables
+Use for computed variables not meant
+to be set by system users.
+----------------------------------------
+Master system palette variables are set
+in core/_units
+----------------------------------------
+Anything meant to be set directly should
+go in:
+
+core/_settings
+(for default settings)
+
+and its pair:
+©
+project/_uswds-project-settings
+(for project overrides)
+----------------------------------------
+*/
+
+/*
+----------------------------------------
+Namespace
+----------------------------------------
+*/
+
+$ns-component: ns('component');
+$ns-utility: ns('utility');
+$ns-grid: ns('grid');
+
+/*
+----------------------------------------
+Spacing
+----------------------------------------
+All spacing values that can be called
+by units()
+----------------------------------------
+*/
+
+$project-spacing-standard: map-collect(
+  map-get($uswds-spacing, smaller),
+  map-get($uswds-spacing, small),
+  map-get($uswds-spacing, smaller-negative),
+  map-get($uswds-spacing, small-negative),
+  map-get($uswds-spacing, medium),
+  map-get($uswds-spacing, medium-negative),
+  map-get($uswds-spacing, large),
+  map-get($uswds-spacing, larger),
+  map-get($uswds-spacing, largest),
+  map-get($uswds-spacing, special)
+);
+
+$spacing-to-token: (
+  0:           0,
+  1:           '1px',
+  2:           '2px',
+  4:           '05',
+  8:           1,
+  12:          '105',
+  16:          2,
+  24:          3,
+  32:          4,
+  40:          5,
+  48:          6,
+  56:          7,
+  64:          8,
+  72:          9,
+);
+
+$spacing-to-value: (
+  0:           0,
+  '2px':         2,
+  '05':        4,
+  1:           8,
+  '105':         12,
+  2:           16,
+  3:           24,
+  4:           32,
+  5:           40,
+  6:           48,
+  7:           56,
+  8:           64,
+  9:           72,
+);
+
+$number-to-value: (
+  1px:        '1px',
+  2px:        '2px',
+  0:          0,
+  1:          1,
+  2:          2,
+  3:          3,
+  4:          4,
+  5:          5,
+  6:          6,
+  7:          7,
+  8:          8,
+  9:          9,
+  0.5:        '05',
+  1.5:        '105',
+  2.5:        '205',
+  -1px:       'neg-1px',
+  -2px:       'neg-2px',
+  -0.5:       'neg-05',
+  -1:         'neg-1',
+  -1.5:       'neg-105',
+  -2:         'neg-2',
+  -2.5:       'neg-205',
+  -3:         'neg-3',
+  -4:         'neg-4',
+  -5:         'neg-5',
+  -6:         'neg-6',
+  -7:         'neg-7',
+  -8:         'neg-8',
+  -9:         'neg-9',
+);
+
+/*
+----------------------------------------
+Font stack
+----------------------------------------
+Compute the project font stack based on
+the project fonts and the font
+definition values set in
+core/_font-definitions
+----------------------------------------
+*/
+
+$font-stack-sans:     false;
+$font-stack-serif:    false;
+$font-stack-mono:     false;
+$font-stack-cond:     false;
+
+$font-stack-heading:  false;
+$font-stack-body:     false;
+$font-stack-code:     false;
+$font-stack-alt:      false;
+
+@if $theme-font-sans {
+  $font-stack-sans: map-deep-get(
+    $all-font-definitions,
+    $theme-font-sans,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-sans,
+    'stack'
+  );
+  $font-stack-sans: $font-stack-sans + unquote('');
+}
+
+@if $theme-font-serif {
+  $font-stack-serif: map-deep-get(
+    $all-font-definitions,
+    $theme-font-serif,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-serif,
+    'stack'
+  );
+  $font-stack-serif: $font-stack-serif + unquote('');
+}
+
+@if $theme-font-mono {
+  $font-stack-mono: map-deep-get(
+    $all-font-definitions,
+    $theme-font-mono,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-mono,
+    'stack'
+  );
+  $font-stack-mono: $font-stack-mono + unquote('');
+}
+
+@if $theme-font-cond {
+  $font-stack-cond: map-deep-get(
+    $all-font-definitions,
+    $theme-font-cond,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-cond,
+    'stack'
+  );
+  $font-stack-cond: $font-stack-cond + unquote('');
+}
+
+@if $theme-font-heading {
+  $font-stack-heading: map-deep-get(
+    $all-font-definitions,
+    $theme-font-heading,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-heading,
+    'stack'
+  );
+  $font-stack-heading: $font-stack-heading + unquote('');
+}
+
+@if $theme-font-body {
+  $font-stack-body: map-deep-get(
+    $all-font-definitions,
+    $theme-font-body,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-body,
+    'stack'
+  );
+  $font-stack-body: $font-stack-body + unquote('');
+}
+
+@if $theme-font-code {
+  $font-stack-code: map-deep-get(
+    $all-font-definitions,
+    $theme-font-code,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-code,
+    'stack'
+  );
+  $font-stack-code: $font-stack-code + unquote('');
+}
+
+@if $theme-font-alt {
+  $font-stack-alt: map-deep-get(
+    $all-font-definitions,
+    $theme-font-alt,
+    'name'
+    ), map-deep-get(
+    $all-font-definitions,
+    $theme-font-alt,
+    'stack'
+  );
+  $font-stack-alt: $font-stack-alt + unquote('');
+}
+
+$project-font-stacks:(
+  'mono':     $font-stack-mono,
+  'sans':     $font-stack-sans,
+  'serif':    $font-stack-serif,
+  'cond':     $font-stack-cond,
+  'heading':  $font-stack-heading,
+  'body':     $font-stack-body,
+  'code':     $font-stack-code,
+  'alt':      $font-stack-alt,
+);
+
+// for backward compatibility
+// TODO: deprecate
+$font-sans:   $font-stack-sans;
+$font-serif:  $font-stack-serif;
+$font-mono:   $font-stack-mono;
+$font-cond:   $font-stack-cond;
+
+/*
+----------------------------------------
+Set basic font rules for the font
+utilities to reference.
+----------------------------------------
+TODO: Do these need to integrate the
+namespace var set in utilities-settings?
+----------------------------------------
+*/
+
+$if-important: '';
+
+@if $utilities-use-important {
+  $if-important: ' !important';
+}
+
+@if $theme-font-mono {
+  [class*='#{ns('utility')}font-mono-'] { font-family: $font-stack-mono#{$if-important}; }
+}
+
+@if $theme-font-sans {
+  [class*='#{ns('utility')}font-sans-'] { font-family: $font-stack-sans#{$if-important}; }
+}
+
+@if $theme-font-serif {
+  [class*='#{ns('utility')}font-serif-'] { font-family: $font-stack-serif#{$if-important}; }
+}
+
+@if $theme-font-cond {
+  [class*='#{ns('utility')}font-cond-'] { font-family: $font-stack-cond#{$if-important}; }
+}
+
+@if $theme-font-heading {
+  [class*='#{ns('utility')}font-heading-'] { font-family: $font-stack-heading#{$if-important}; }
+}
+
+@if $theme-font-body {
+  [class*='#{ns('utility')}font-body-'] { font-family: $font-stack-body#{$if-important}; }
+}
+
+@if $theme-font-code {
+  [class*='#{ns('utility')}font-code-'] { font-family: $font-stack-code#{$if-important}; }
+}
+
+@if $theme-font-alt {
+  [class*='#{ns('utility')}font-alt-'] { font-family: $font-stack-alt#{$if-important}; }
+}
+
+$project-font-weights: (
+  'thin':       $theme-font-weight-thin,
+  'light':      $theme-font-weight-light,
+  'normal':     $theme-font-weight-normal,
+  'medium':     $theme-font-weight-medium,
+  'semibold':   $theme-font-weight-semibold,
+  'bold':       $theme-font-weight-bold,
+  'heavy':      $theme-font-weight-heavy,
+);
+
+$project-colors: (
+  'base': (
+    'lightest': get-uswds-color($theme-color-base-lightest),
+    'lighter':  get-uswds-color($theme-color-base-lighter),
+    'light':    get-uswds-color($theme-color-base-light),
+    'default':  get-uswds-color($theme-color-base),
+    'dark':     get-uswds-color($theme-color-base-dark),
+    'darker':   get-uswds-color($theme-color-base-darker),
+    'darkest':  get-uswds-color($theme-color-base-darkest),
+  ),
+  'primary': (
+    'lighter': get-uswds-color($theme-color-primary-lighter),
+    'light':   get-uswds-color($theme-color-primary-light),
+    'default': get-uswds-color($theme-color-primary),
+    'vivid':   get-uswds-color($theme-color-primary-vivid),
+    'dark':    get-uswds-color($theme-color-primary-dark),
+    'darker':  get-uswds-color($theme-color-primary-darker),
+  ),
+  'secondary': (
+    'lighter':  get-uswds-color($theme-color-secondary-lighter),
+    'light':   get-uswds-color($theme-color-secondary-light),
+    'default': get-uswds-color($theme-color-secondary),
+    'vivid':   get-uswds-color($theme-color-secondary-vivid),
+    'dark':    get-uswds-color($theme-color-secondary-dark),
+    'darker':  get-uswds-color($theme-color-secondary-darker),
+  ),
+  'accent-warm': (
+    'default': get-uswds-color($theme-color-accent-warm),
+    'dark':    get-uswds-color($theme-color-accent-warm-dark),
+  ),
+  'accent-cool': (
+    'default': get-uswds-color($theme-color-accent-cool),
+    'dark':    get-uswds-color($theme-color-accent-cool-dark),
+  )
+);
+
+$project-state-colors: (
+  'error': (
+    'lighter': get-uswds-color($theme-color-error-lighter),
+    'light':   get-uswds-color($theme-color-error-light),
+    'default': get-uswds-color($theme-color-error),
+    'dark':    get-uswds-color($theme-color-error-dark),
+    'darker':  get-uswds-color($theme-color-error-darker),
+  ),
+  'warn': (
+    'lighter': get-uswds-color($theme-color-warn-lighter),
+    'light':   get-uswds-color($theme-color-warn-light),
+    'default': get-uswds-color($theme-color-warn),
+    'dark':    get-uswds-color($theme-color-warn-dark),
+    'darker':  get-uswds-color($theme-color-warn-darker),
+  ),
+  'success': (
+    'lighter': get-uswds-color($theme-color-success-lighter),
+    'light':   get-uswds-color($theme-color-success-light),
+    'default': get-uswds-color($theme-color-success),
+    'dark':    get-uswds-color($theme-color-success-dark),
+    'darker':  get-uswds-color($theme-color-success-darker),
+  ),
+  'disabled': (
+    'default': get-uswds-color($theme-color-disabled),
+  ),
+);
+
+$all-project-colors: map-collect(
+  $project-colors,
+  $project-state-colors
+);
+
+/*
+----------------------------------------
+Build the project type scale map
+----------------------------------------
+*/
+
+$project-type-scale: (
+  '3xs': system-type-scale($theme-type-scale-micro),
+  '2xs': system-type-scale($theme-type-scale-smallest),
+  'xs': system-type-scale($theme-type-scale-smaller),
+  'sm': system-type-scale($theme-type-scale-small),
+  'md': system-type-scale($theme-type-scale-base),
+  'lg': system-type-scale($theme-type-scale-large),
+  'xl': system-type-scale($theme-type-scale-larger),
+  '2xl': system-type-scale($theme-type-scale-largest),
+  '3xl': system-type-scale($theme-type-scale-mega),
+);
+
+$all-type-scale: map-collect(
+  $uswds-type-scale,
+  $project-type-scale
+);
+
+$project-cap-heights:(
+  'base':     $uswds-base-cap-height,
+  'mono':     cap-height($theme-font-mono),
+  'sans':     cap-height($theme-font-sans),
+  'serif':    cap-height($theme-font-serif),
+  'cond':     cap-height($theme-font-cond),
+  'heading':  cap-height($theme-font-heading),
+  'body':     cap-height($theme-font-body),
+  'code':     cap-height($theme-font-code),
+  'alt':      cap-height($theme-font-alt),
+);
+
+/*
+----------------------------------------
+Border-radius
+----------------------------------------
+*/
+
+$project-border-radius: (
+  0:          0,
+  'sm':         units($theme-border-radius-sm),
+  'md':         units($theme-border-radius-md),
+  'lg':         units($theme-border-radius-lg),
+  'pill':       9999em,
+);
+
+$all-border-radius: map-collect(
+  $project-border-radius,
+  map-get($uswds-spacing, smaller),
+  map-get($uswds-spacing, small)
+);
+
+/*
+----------------------------------------
+Column gaps
+----------------------------------------
+*/
+
+$project-column-gaps: (
+  'sm': $theme-column-gap-small,
+  'md': $theme-column-gap,
+  'lg': $theme-column-gap-large,
+);
+
+/*
+----------------------------------------
+Colors and palettes
+----------------------------------------
+*/
+
+$highlight:             get-uswds-color('highlight');
+$base-lightest:         get-uswds-color($theme-color-base-lightest);
+$base-lighter:          get-uswds-color($theme-color-base-lighter);
+$base-light:            get-uswds-color($theme-color-base-light);
+$base:                  get-uswds-color($theme-color-base);
+$base-dark:             get-uswds-color($theme-color-base-dark);
+$base-darker:           get-uswds-color($theme-color-base-darker);
+$base-darkest:          get-uswds-color($theme-color-base-darkest);
+$ink:                   $base-darkest;
+$primary-lighter:       get-uswds-color($theme-color-primary-lighter);
+$primary-light:         get-uswds-color($theme-color-primary-light);
+$primary:               get-uswds-color($theme-color-primary);
+$primary-vivid:         get-uswds-color($theme-color-primary-vivid);
+$primary-dark:          get-uswds-color($theme-color-primary-dark);
+$primary-darker:        get-uswds-color($theme-color-primary-darker);
+$secondary-lighter:     get-uswds-color($theme-color-secondary-lighter);
+$secondary-light:       get-uswds-color($theme-color-secondary-light);
+$secondary:             get-uswds-color($theme-color-secondary);
+$secondary-vivid:       get-uswds-color($theme-color-secondary-vivid);
+$secondary-dark:        get-uswds-color($theme-color-secondary-dark);
+$secondary-darker:      get-uswds-color($theme-color-secondary-darker);
+$accent-warm-dark:      get-uswds-color($theme-color-accent-warm-dark);
+$accent-warm:           get-uswds-color($theme-color-accent-warm);
+$accent-cool-dark:      get-uswds-color($theme-color-accent-cool-dark);
+$accent-cool:           get-uswds-color($theme-color-accent-cool);
+$error-lighter:         get-uswds-color($theme-color-error-lighter);
+$error-light:           get-uswds-color($theme-color-error-light);
+$error:                 get-uswds-color($theme-color-error);
+$error-dark:            get-uswds-color($theme-color-error-dark);
+$error-darker:          get-uswds-color($theme-color-error-darker);
+$warn-lighter:          get-uswds-color($theme-color-warn-lighter);
+$warn-light:            get-uswds-color($theme-color-warn-light);
+$warn:                  get-uswds-color($theme-color-warn);
+$warn-dark:             get-uswds-color($theme-color-warn-dark);
+$warn-darker:           get-uswds-color($theme-color-warn-darker);
+$success-lighter:       get-uswds-color($theme-color-success-lighter);
+$success-light:         get-uswds-color($theme-color-success-light);
+$success:               get-uswds-color($theme-color-success);
+$success-dark:          get-uswds-color($theme-color-success-dark);
+$success-darker:        get-uswds-color($theme-color-success-darker);
+$disabled:              get-uswds-color($theme-color-disabled);
+
+$color-palette-theme: (
+  'base-lightest':      get-uswds-color($theme-color-base-lightest),
+  'base-lighter':       get-uswds-color($theme-color-base-lighter),
+  'base-light':         get-uswds-color($theme-color-base-light),
+  'base':               get-uswds-color($theme-color-base),
+  'base-dark':          get-uswds-color($theme-color-base-dark),
+  'base-darker':        get-uswds-color($theme-color-base-darker),
+  'base-darkest':       get-uswds-color($theme-color-base-darkest),
+  'text':               get-uswds-color($theme-color-text),
+  'primary-lighter':    get-uswds-color($theme-color-primary-lighter),
+  'primary-light':      get-uswds-color($theme-color-primary-light),
+  'primary':            get-uswds-color($theme-color-primary),
+  'primary-vivid':      get-uswds-color($theme-color-primary-vivid),
+  'primary-dark':       get-uswds-color($theme-color-primary-dark),
+  'primary-darker':     get-uswds-color($theme-color-primary-darker),
+  'secondary-light':    get-uswds-color($theme-color-secondary-light),
+  'secondary':          get-uswds-color($theme-color-secondary),
+  'secondary-vivid':    get-uswds-color($theme-color-secondary-vivid),
+  'secondary-dark':     get-uswds-color($theme-color-secondary-dark),
+  'accent-warm-dark':   get-uswds-color($theme-color-accent-warm-dark),
+  'accent-warm':        get-uswds-color($theme-color-accent-warm),
+  'accent-cool-dark':   get-uswds-color($theme-color-accent-cool-dark),
+  'accent-cool':        get-uswds-color($theme-color-accent-cool),
+);
+
+$color-palette-state: (
+  'error-lighter':      get-uswds-color($theme-color-error-lighter),
+  'error-light':        get-uswds-color($theme-color-error-light),
+  'error':              get-uswds-color($theme-color-error),
+  'error-dark':         get-uswds-color($theme-color-error-dark),
+  'error-darker':       get-uswds-color($theme-color-error-darker),
+  'warn-lighter':       get-uswds-color($theme-color-warn-lighter),
+  'warn-light':         get-uswds-color($theme-color-warn-light),
+  'warn':               get-uswds-color($theme-color-warn),
+  'warn-dark':          get-uswds-color($theme-color-warn-dark),
+  'warn-darker':        get-uswds-color($theme-color-warn-darker),
+  'success-lighter':    get-uswds-color($theme-color-success-lighter),
+  'success-light':      get-uswds-color($theme-color-success-light),
+  'success':            get-uswds-color($theme-color-success),
+  'success-dark':       get-uswds-color($theme-color-success-dark),
+  'success-darker':     get-uswds-color($theme-color-success-darker),
+  'disabled':           get-uswds-color($theme-color-disabled),
+);
+
+$color-palette-grayscale: $uswds-gray;
+
+/*
+========================================
+Old USWDS Variables
+Many of these will be deprecated
+or converted into settings
+----------------------------------------
+These variables drive almost every
+aspect of the U.S. Web Design system.
+Every variable is declared as !default
+so that it can be overridden by a
+previous import.
+
+XXX Do not modify this file!
+
+If you want to override a variable, set
+that variable in one of your own partials,
+then
+@import '{path/to/uswds/}core/variables'.
+----------------------------------------
+*/
+
+/*
+----------------------------------------
+Typography
+----------------------------------------
+TODO: Rethink naming and consolidate in
+settings
+----------------------------------------
+*/
+
+// Removing the !default from $em-base so we are not inheriting that value from Bourbon.
+$em-base:             10px;
+$base-font-size:      1.7rem !default;
+$small-font-size:     1.4rem !default;
+$lead-font-size:      2rem !default;
+$title-font-size:     5.2rem !default;
+$h1-font-size:        4rem !default;
+$h2-font-size:        3rem !default;
+$h3-font-size:        2rem !default;
+$h4-font-size:        1.7rem !default;
+$h5-font-size:        1.5rem !default;
+$h6-font-size:        1.3rem !default;
+$base-line-height:    1.5 !default;
+$heading-line-height: 1.3 !default;
+$lead-line-height:    1.7 !default;
+
+/*
+----------------------------------------
+Font weights
+----------------------------------------
+TODO: Consolidate in settings
+----------------------------------------
+*/
+
+// TODO these should be called font-weight-${}
+$font-normal:         400 !default;
+$font-bold:           700 !default;
+
+/*
+----------------------------------------
+Colors
+----------------------------------------
+TODO:
+1. These should be set in settings
+2. Probably need different naming rubric
+----------------------------------------
+*/
+
+$color-blue:                 $blue-60v !default;
+$color-blue-darker:          $blue-warm-70v !default;
+$color-blue-darkest:         $blue-warm-80v !default;
+$color-blue-light:           $blue-warm-50 !default;
+$color-blue-lighter:         $blue-warm-30 !default;
+$color-blue-lightest:        $blue-warm-10 !default;
+
+$color-aqua:                 $cyan-30v !default;
+$color-aqua-dark:            $cyan-40v !default;
+$color-aqua-darkest:         $blue-60 !default;
+$color-aqua-light:           $cyan-20 !default;
+$color-aqua-lightest:        $cyan-5 !default;
+
+$color-red:                  $red-50 !default;
+$color-red-dark:             $red-60v !default;
+$color-red-darkest:          $red-70v !default;
+$color-red-light:            $red-30 !default;
+$color-red-lightest:         $red-10 !default;
+
+$color-white:                white !default;
+$color-black:                black !default;
+$color-black-light:          $gray-90 !default;
+
+$color-gray-dark:            $gray-cool-80 !default;
+$color-gray:                 $gray-cool-60 !default;
+$color-gray-medium:          #757575 !default;
+$color-gray-light:           $gray-30 !default;
+$color-gray-lighter:         $gray-cool-10 !default;
+$color-gray-lightest:        $gray-cool-5 !default;
+
+$color-gray-warm-dark:       $gray-warm-70 !default;
+$color-gray-warm-light:      $gray-warm-10 !default;
+$color-gray-cool-light:      $blue-warm-5 !default;
+
+$color-gold:                 $gold-20v !default;
+$color-gold-light:           $gold-10v !default;
+$color-gold-lighter:         $yellow-10 !default;
+$color-gold-lightest:        $gold-5v !default;
+
+$color-green:                $green-cool-50 !default;
+$color-green-light:          $green-cool-40 !default;
+$color-green-lighter:        $green-cool-20 !default;
+$color-green-lightest:       $green-cool-5 !default;
+
+$color-cool-blue:            #205493 !default;
+$color-cool-blue-light:      #4773aa !default;
+$color-cool-blue-lighter:    #8ba6ca !default;
+$color-cool-blue-lightest:   #dce4ef !default;
+
+$color-purple:               $violet-70v !default;
+
+// Functional colors
+$color-primary:              $color-blue !default;
+$color-primary-darker:       $color-blue-darker !default;
+$color-primary-darkest:      $color-blue-darkest !default;
+
+$color-primary-alt:          $color-aqua !default;
+$color-primary-alt-dark:     $color-aqua-dark !default;
+$color-primary-alt-darkest:  $color-aqua-darkest !default;
+$color-primary-alt-light:    $color-aqua-light !default;
+$color-primary-alt-lightest: $color-aqua-lightest !default;
+
+$color-secondary:            $color-red !default;
+$color-secondary-dark:       $color-red-dark !default;
+$color-secondary-darkest:    $color-red-darkest !default;
+$color-secondary-light:      $color-red-light !default;
+$color-secondary-lightest:   $color-red-lightest !default;
+
+$color-base:                 $color-black-light !default;
+$color-focus:                $color-gray-light !default;
+$color-visited:              $color-purple !default;
+
+$color-shadow:               $black-transparent-30 !default;
+$color-transparent:          rgba(#000, 0) !default;
+
+/*
+----------------------------------------
+Mobile First Breakpoints
+----------------------------------------
+TODO: deprecate in favor of the values
+in settings
+----------------------------------------
+*/
+
+$xsmall-screen: null !default;
+$small-screen:  481px !default;
+$medium-screen: 600px !default;
+$large-screen:  1201px !default;
+$xlarge-screen: null !default;
+
+/*
+----------------------------------------
+Grid column counts by screen size
+----------------------------------------
+TODO: Lots of grid work to come
+----------------------------------------
+*/
+
+$grid-columns-small: 1 !default;
+$grid-columns-medium: 6 !default;
+$grid-columns-large: 12 !default;
+
+/*
+----------------------------------------
+@media single-keyword helpers
+----------------------------------------
+TODO: Need to rethink these
+----------------------------------------
+*/
+
+$small: new-breakpoint(min-width $small-screen $grid-columns-small) !default;
+$medium: new-breakpoint(min-width $medium-screen $grid-columns-medium) !default;
+$large: new-breakpoint(min-width $large-screen $grid-columns-large) !default;
+
+/*
+----------------------------------------
+Set $asset-pipeline to true if you're
+using the Rails Asset Pipeline
+----------------------------------------
+TODO: This should be set in settings
+----------------------------------------
+*/
+
+$asset-pipeline:      false !default;
+
+/*
+----------------------------------------
+Magic numbers
+----------------------------------------
+TODO: Evaluate which of these should be
+set in settings and which are static or
+calculated variables
+----------------------------------------
+*/
+
+$theme-site-margins:                  4 !default;
+$theme-site-margins-mobile:           2 !default;
+
+$text-width-sm: 60ch;
+
+$text-max-width:                66ch !default; // 66 characters per line
+$text-narrow-width:             40ch !default;
+$text-wide-width:               72ch !default;
+$lead-max-width:                77rem !default;
+$site-max-width:                1040px !default;
+$site-margins:                  3rem !default;
+$site-margins-mobile:           1.5rem !default;
+$article-max-width:             600px !default;
+$input-max-width:               46rem !default;
+$label-border-radius:           2px !default;
+$checkbox-border-radius:        2px !default;
+$border-radius:                 3px !default;
+$button-border-radius:          5px !default;
+$box-shadow:                    0 0 2px $color-shadow !default;
+$focus-outline:                 2px dotted $color-gray-light !default;
+$focus-spacing:                 3px !default;
+$nav-width:                     951px !default;
+$sidenav-current-border-width:  0.4rem !default; // must be in rem for math
+
+// 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
+$hit-area: 4.4rem !default;
+
+$spacing-x-small: 0.5rem;
+$spacing-small: 1rem;
+$spacing-md-small: 1.5rem;
+$spacing-medium: 2rem;
+$spacing-large: 3rem;

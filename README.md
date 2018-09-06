@@ -1,3 +1,11 @@
 # ASP .NETCore Project Template
-ASP .NET Core Project Template for GSA FM IT team.  Every one should be able to use this templae to build a ASP .NET Core web app with PostgreSQL database and beautifully looking U.S. Web Deisgn Standard. 
+ASP .NET Core Project Template for GSA FM IT team.  Every one should be able to use this templae to build a ASP .NET Core web app with PostgreSQL database and beautifully looking U.S. Web Deisgn Standard UI. 
 
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+- Visual Studio 2017 15.7.5
+- .NET Core SDK 2.1.x
+- Entity Framework Core 2.1
+- Npgsql.EntityFrameworkCore.PostgreSQL 2.1.1.1 (https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/)

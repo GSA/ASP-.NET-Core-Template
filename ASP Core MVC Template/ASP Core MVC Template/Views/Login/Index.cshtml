@@ -4,31 +4,35 @@
 @{
     ViewData["Title"] = "WebBill";
 }
-<div class="usa-grid">
-<form class="usa-form">
-    <fieldset>
-        <legend class="usa-legend usa-drop_text">Sign in</legend>
-        <span>or <a href="javascript:void(0);">create an account</a></span>
-        <label class="usa-label" for="username">Email address</label>
-        <input class="usa-input" id="username" name="username" type="text" autocapitalize="off" autocorrect="off">
-        <label class="usa-label" for="password-sign-in">Password</label>
-        <input class="usa-input" id="password-sign-in" name="password" type="password">
-        <p class="usa-form-note">
-            <a title="Show password" href="javascript:void(0);"
-               class="usa-show_password"
-               aria-controls="password-sign-in">Show password</a>
-        </p>
-        <input class="usa-button" type="submit" value="Sign in">
-        <p>
-            <a href="javascript:void(0);" title="Forgot username">
-                Forgot username?
-            </a>
-        </p>
-        <p>
-            <a href="javascript:void(0);" title="Forgot password">
-                Forgot password?
-            </a>
-        </p>
-    </fieldset>
-</form>
+<div class="usa-grid bg-primary-lighter">
+        <div class="usa-width-one-third"><br></div>
+        <div class="usa-width-one-third">
+            <form class="usa-form bg-white padding-2">
+                <fieldset>
+                    <legend class="usa-legend usa-drop_text">Sign in</legend>
+                    <span>or <a href="javascript:void(0);">create an account</a></span>
+                    <label for="username">Email address</label>
+                    <input class="usa-input" id="username" name="username" type="text" autocapitalize="off" autocorrect="off">
+                    <label for="password-sign-in">Password</label>
+                    <input class="usa-input" id="password-sign-in" name="password" type="password">
+                    <p class="usa-form-note">
+                        <a title="Show password" href="javascript:void(0);"
+                           class="usa-show_password"
+                           aria-controls="password-sign-in">Show password</a>
+                    </p>
+                    <input class="usa-button" type="submit" value="Sign in">
+                    <p>
+                        <a href="javascript:void(0);" title="Forgot username">
+                            Forgot username?
+                        </a>
+                    </p>
+                    <p>
+                        <a href="javascript:void(0);" title="Forgot password">
+                            Forgot password?
+                        </a>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        <div class="usa-width-one-third"><br></div>
 </div>

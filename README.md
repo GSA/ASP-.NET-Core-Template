@@ -9,3 +9,6 @@ These instructions will get you a copy of the project up and running on your loc
 - .NET Core SDK 2.1.x
 - Entity Framework Core 2.1
 - Npgsql.EntityFrameworkCore.PostgreSQL 2.1.1.1 (https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/)
+
+### Installing
+1. Download and copy to \My Documents\Visual Studio 2017\Templates\ProjectTemplates folder.

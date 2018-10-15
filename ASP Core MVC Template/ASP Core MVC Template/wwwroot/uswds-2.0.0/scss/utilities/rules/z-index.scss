@@ -21,11 +21,11 @@ $u-z-index: (
     base: 'z',
     modifiers: null,
     values: map-collect(
-      get-plugins($z-index-plugins),
+      get-palettes($z-index-palettes),
       $z-index-manual-values
     ),
     settings: $z-index-settings,
     property: 'z-index',
     type: 'utility',
   )
-)
+);

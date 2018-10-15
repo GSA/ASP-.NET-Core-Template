@@ -7,11 +7,11 @@
     $important: ' !important';
   }
   @each $this-value in $value {
-    @if type-of($this-value) == 'color' {
-      text-decoration-color: $this-value#{$important};
+    @if map-has-key($all-color-shortcodes, smart-quote($this-value)) {
+      text-decoration-color: color(smart-quote($this-value)) #{$important};
     }
     @else {
-      text-decoration: get-uswds-value(text-decoration, $value...)#{$important};
+      text-decoration: get-uswds-value(text-decoration, $value...) #{$important};
     }
   }
 }

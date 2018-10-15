@@ -19,11 +19,11 @@ $u-max-width: (
     base: 'maxw',
     modifiers: null,
     values: map-collect(
-      get-plugins($max-width-plugins),
+      get-palettes($max-width-palettes),
       $max-width-manual-values
     ),
     settings: $max-width-settings,
     property: 'max-width',
     type: 'utility',
   )
-)
+);

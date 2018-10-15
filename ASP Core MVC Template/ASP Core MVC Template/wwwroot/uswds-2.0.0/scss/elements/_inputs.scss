@@ -1,134 +1,133 @@
-// scss-lint:disable QualifyingElement, PropertyCount
+// Helpers
 
-$input-line-height: 1.3;
-$input-border-width: 0.1rem; // Using rem instead of px so function uses same units
-$input-padding-vertical: 1rem;
+$box-input-size: 2.5;
+$box-input-border-width: 2px;
+$box-input-margin-right: 1.5;
+$input-state-border-width: 0.5;
 
-// input heights will vary by browser and type
-// if height not explicitly set
-$input-height-exact: (
-  ($base-font-size * $input-line-height) +
-  ($input-padding-vertical * 2) +
-  ($input-border-width * 2)
-);
+@mixin range-focus {
+  background-color: color('white');
+  box-shadow: 0 0 0 units(2px) color($theme-focus-color);
+}
 
-// truncated to 1 decimal place
-// (i.e., 1.21rem -> 1.2rem)
-$input-height: floor($input-height-exact * 10) / 10;
+@mixin range-track {
+  background-color: color('base-lightest');
+  border-radius: radius('pill');
+  border: units(1px) solid color('base');
+  cursor: pointer;
+  height: units(2);
+  width: 100%;
+}
 
-// Block form elements
-/* stylelint-disable selector-no-qualifying-type */
-input,
-textarea,
-select {
+@mixin range-thumb {
+  @include u-circle($box-input-size);
+  background: color('base-lightest');
+  border: none;
+  box-shadow: 0 0 0 units($box-input-border-width) color('base');
+  cursor: pointer;
+}
+
+@mixin range-ms-fill {
+  background-color: color('base-lightest');
+  border-radius: radius('pill');
+  border: units(1px) solid color('base');
+}
+
+// Block input elements
+.usa-fieldset,
+.usa-input,
+.usa-textarea,
+.usa-select,
+.usa-range,
+.usa-form-hint {
+  @include border-box-sizing;
+  @include typeset(
+    $theme-form-font-family,
+    $theme-body-font-size,
+    $theme-input-line-height
+  );
+}
+
+.usa-input,
+.usa-textarea,
+.usa-select,
+.usa-range {
+  @include u-border(1px, 'base-dark');
   appearance: none;
-  border: $input-border-width solid $color-gray;
   border-radius: 0;
-  box-sizing: border-box;
-  color: $color-base; // standardize on firefox
+  color: color('ink'); // standardize on firefox
   display: block;
-  font-size: $base-font-size;
-  height: $input-height;
-  line-height: $input-line-height;
-  margin: 0.2em 0;
-  max-width: $input-max-width;
-  padding: $input-padding-vertical 0.7em;
+  height: units(5);
+  margin-top: units(1);
+  max-width: units($theme-input-max-width);
+  padding: units(1);
   width: 100%;
 
   &.usa-input-success {
-    border: 3px solid $color-green-light;
+    @include u-border($input-state-border-width, 'success');
   }
 }
-/* stylelint-enable */
+
+.usa-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.usa-form-group-error {
+  @include u-border-left(0.5, 'error-dark');
+  margin-top: units(4);
+  padding-left: units(2);
+  position: relative;
+
+  @include at-media('desktop') {
+    margin-left: units(-2.5);
+  }
+}
 
 .usa-input-error {
-  border-left: 4px solid $color-secondary-dark;
-  margin-top: 3rem;
-  padding-bottom: 0.8rem;
-  padding-left: 1.5rem;
-  padding-top: 0.8rem;
-  position: relative;
-  right: 1.9rem;
-
-  input,
-  textarea,
-  select {
-    border: 3px solid $color-secondary-dark;
-    width: calc(100% + 1.9rem); // 1.5rem left padding + 4px border from input error spacing
-  }
-
-  label {
-    margin-top: 0;
-  }
-
-  .usa-input-inline {
-    border: $input-border-width solid $color-gray;
-    width: inherit;
-  }
-
-  .usa-input-inline-error {
-    border: 3px solid $color-secondary-dark;
-  }
+  @include u-border($input-state-border-width, 'error-dark');
 }
 
 .usa-input-error-label {
   display: block;
-  font-size: $base-font-size;
-  font-weight: $font-bold;
+  font-weight: font-weight('bold');
+  margin-top: 0;
 }
 
 .usa-input-error-message {
-  color: $color-secondary-dark;
+  @include u-padding-y(0.5);
+  color: color('error-dark');
   display: block;
-  font-size: $base-font-size;
-  font-weight: $font-bold;
-  padding-bottom: 3px;
-  padding-top: 3px;
-}
-
-// Deprecated: Some screen readers can't read CSS content.
-// Will be removed in 2.0.
-.usa-input-required:after {
-  color: $color-secondary-darkest;
-  content: ' (*required)';
-}
-
-// Deprecated: Some screen readers can't read CSS content.
-// Will be removed in 2.0.
-.usa-input-optional:after {
-  color: $color-gray-medium;
-  content: ' (optional)';
+  font-weight: font-weight('bold');
 }
 
 .usa-input-label-helper {
-  color: $color-gray-medium;
+  color: color('base');
 }
 
 .usa-input-label-required {
-  color: $color-secondary-darkest;
+  color: color('error-dark');
 }
 
-label {
+.usa-label {
   display: block;
-  margin-top: 3rem;
-  max-width: $input-max-width;
+  line-height: line-height($theme-form-font-family, 2);
+  margin-top: units(3);
+  max-width: units($theme-input-max-width);
 }
 
-textarea {
-  height: 16rem;
+.usa-textarea {
+  height: units('card');
 }
 
-select {
+.usa-select {
+  @include add-background-svg('arrow-both');
   appearance: none;
-  background-color: $color-white;
-  background-image: url('#{$theme-image-path}/arrow-both.png');
-  // Ensure browsers that don't support SVG in background-image (IE 11 and below) fall back to PNG.
-  // See https://www.broken-links.com/2010/06/14/using-svg-in-backgrounds-with-png-fallback/
-  background-image: none, url('#{$theme-image-path}/arrow-both.svg'), url('#{$theme-image-path}/arrow-both.png');
-  background-position: right 1.3rem center;
-  background-repeat: no-repeat;
-  background-size: 1rem;
-  padding-right: 3rem;
+  background-color: color('white');
+  background-position: right units(1.5) center;
+  background-size: units(1);
+  padding-right: units(4);
 
   &::-ms-expand {
     display: none;
@@ -142,37 +141,36 @@ select {
   // Remove dotted outline from select element on focus in Firefox
   &:-moz-focusring {
     color: transparent;
-    text-shadow: 0 0 0 $color-black;
+    text-shadow: 0 0 0 color('black');
   }
 }
 
-option:first-child {
-  font-weight: $font-bold;
-}
-
-legend {
-  font-size: $h2-font-size;
-  font-weight: $font-bold;
-}
-
-.usa-fieldset-inputs {
-  label {
-    margin-top: 0;
-  }
+.usa-legend {
+  font-size: font-size($theme-form-font-family, 'xl');
+  font-weight: font-weight('bold');
 }
 
 // Hint text
 
 .usa-form-hint {
-  color: $color-gray-medium;
-  font-family: $font-sans;
+  color: color('base');
   margin-bottom: 0;
 }
 
 // Custom checkboxes
 
-[type=checkbox],
-[type=radio] {
+@include override-prose {
+  .usa-input-list {
+    @include add-list-reset;
+
+    li {
+      line-height: line-height($theme-form-font-family, $theme-input-line-height);
+    }
+  }
+}
+
+.usa-checkbox-input,
+.usa-radio-input {
   // The actual input element is only visible to screen readers, because
   // all visual styling is done via the label.
   @include sr-only();
@@ -180,154 +178,140 @@ legend {
   .lt-ie9 & {
     border: 0;
     float: left;
-    margin: 0.4em 0.4em 0 0;
+    margin: units(0.5) units(0.5) 0 0;
     position: static;
     width: auto;
   }
 }
 
-[type=checkbox] + label,
-[type=radio] + label {
+.usa-checkbox-label,
+.usa-radio-label {
   cursor: pointer;
-  font-weight: 400;
-  margin-bottom: 0.65em;
+  display: inherit;
+  font-weight: font-weight('normal');
+  margin-bottom: units(1.5);
+  padding-left: units($box-input-margin-right + $box-input-size);
+  position: relative;
+  text-indent: units(-$box-input-margin-right - $box-input-size);
 }
 
-[type=checkbox] + label::before,
-[type=radio] + label::before {
-  background: $color-white;
-  border-radius: $checkbox-border-radius;
-  box-shadow: 0 0 0 1px $color-gray-medium;
+.usa-checkbox-label::before,
+.usa-radio-label::before {
+  background: color('white');
   content: '\a0';
   display: inline-block;
-  height: $spacing-medium;
-  line-height: $spacing-medium;
-  margin-right: 0.6em;
-  text-indent: 0.15em;
+  left: units($box-input-border-width);
+  position: relative;
   vertical-align: middle\0; // Target IE 11 and below to vertically center inputs
-  width: $spacing-medium;
 }
 
-[type=radio] + label::before {
-  border-radius: 100%;
-  box-shadow: 0 0 0 2px $color-white, 0 0 0 3px $color-gray-medium;
-  height: 1.4rem; // Size overrides to account for shape + checked styling
-  line-height: 1.4rem;
-  margin-right: 0.75em;
-  width: 1.4rem;
+.usa-checkbox-label::before {
+  @include u-square($box-input-size);
+  border-radius: radius($theme-checkbox-border-radius);
 }
 
-[type=checkbox]:checked + label::before,
-[type=radio]:checked + label::before {
-  background-color: $color-primary;
-  box-shadow: 0 0 0 1px $color-primary;
+.usa-radio-label::before {
+  @include u-circle($box-input-size);
 }
 
-[type=radio]:checked + label::before {
-  box-shadow: 0 0 0 2px $color-white, 0 0 0 4px $color-primary;
+.usa-checkbox-label::before,
+.usa-radio-label::before {
+  box-shadow: 0 0 0 units($box-input-border-width) color('base');
+  line-height: units($box-input-size);
+  margin-right: units($box-input-margin-right);
 }
 
-[type=checkbox]:checked + label::before,
-[type=checkbox]:checked:disabled + label::before {
-  background-image: url('#{$theme-image-path}/correct8.png');
-  background-image: url('#{$theme-image-path}/correct8.svg');
-  background-position: 50%;
-  background-repeat: no-repeat;
+.usa-checkbox-input:checked + .usa-checkbox-label::before,
+.usa-radio-input:checked + .usa-radio-label::before {
+  background-color: color('primary');
+  box-shadow: 0 0 0 units($box-input-border-width) color('primary');
 }
 
-[type=radio]:focus + label::before {
-  outline: $focus-outline;
-  outline-offset: $focus-spacing * 2; // Double the offset to account for circular shape
+.usa-radio-input:checked + .usa-radio-label::before {
+  box-shadow: 0 0 0 units($box-input-border-width) color('primary'), inset 0 0 0 units($box-input-border-width) color('white');
 }
 
-[type=checkbox]:disabled + label {
-  color: $color-gray-lighter;
+.usa-checkbox-input:checked + .usa-checkbox-label::before,
+.usa-checkbox-input:checked:disabled + .usa-checkbox-label::before {
+  @include add-background-svg('correct8');
+  background-position: center center;
 }
 
-[type=checkbox]:focus + label::before {
-  outline: $focus-outline;
-  outline-offset: $focus-spacing;
+.usa-radio-input:focus + .usa-radio-label::before {
+  @include focus-outline(null, null, null, 0.5);
 }
 
-[type=checkbox]:disabled + label::before,
-[type=radio]:disabled + label::before {
-  background: $color-gray-lightest;
-  box-shadow: 0 0 0 1px $color-gray-light;
+.usa-checkbox-input:disabled + .usa-checkbox-label {
+  color: color('disabled');
+}
+
+.usa-checkbox-input:focus + .usa-checkbox-label::before {
+  @include focus-outline;
+}
+
+.usa-checkbox-input:disabled + .usa-checkbox-label::before,
+.usa-radio-input:disabled + .usa-radio-label::before {
+  background: color('disabled-light');
+  box-shadow: 0 0 0 units($box-input-border-width) color('disabled');
   cursor: not-allowed;
 }
 
 // Range inputs
-
-[type=range] {
+.usa-range {
   appearance: none;
   border: none;
-  padding-left: 0;
+  padding-left: 1px;
   width: 100%;
-}
 
-[type=range]::-webkit-slider-runnable-track {
-  background: $color-gray-light;
-  border: 1px solid $color-gray-medium;
-  cursor: pointer;
-  height: 1.2rem;
-  width: 100%;
-}
+  &:focus {
+    outline: none;
 
-[type=range]::-moz-range-track {
-  background: $color-primary;
-  border: 1px solid $color-gray-medium;
-  cursor: pointer;
-  height: 1.2rem;
-  width: 100%;
-}
+    &::-webkit-slider-thumb {
+      @include range-focus;
+    }
 
-[type=range]::-ms-track {
-  background: transparent;
-  color: transparent;
-  cursor: pointer;
-  height: 1.2rem;
-  width: 100%;
-}
+    &::-moz-range-thumb {
+      @include range-focus;
+    }
 
-[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border: 1px solid $color-gray-medium;
-  height: 2.2rem;
-  border-radius: 1.5rem;
-  background: $color-gray-lightest;
-  cursor: pointer;
-  margin-top: -.65rem;
-  width: 2.2rem;
-}
+    &::-ms-thumb {
+      @include range-focus;
+    }
+  }
 
-[type=range]::-moz-range-thumb {
-  background: $color-gray-lightest;
-  border: 1px solid $color-gray-medium;
-  border-radius: 1.5rem;
-  cursor: pointer;
-  height: 2.2rem;
-  width: 2.2rem;
-}
+  &::-webkit-slider-runnable-track {
+    @include range-track;
+  }
 
-[type=range]::-ms-thumb {
-  background: $color-gray-lightest;
-  border: 1px solid $color-gray-medium;
-  border-radius: 1.5rem;
-  cursor: pointer;
-  height: 2.2rem;
-  width: 2.2rem;
-}
+  &::-moz-range-track {
+    @include range-track;
+  }
 
-[type=range]::-ms-fill-lower {
-  background: $color-gray-light;
-  border: 1px solid $color-gray-medium;
-  border-radius: 2rem;
-}
+  &::-ms-track {
+    @include range-track;
+  }
 
-[type=range]::-ms-fill-upper {
-  background: $color-gray-light;
-  border: 1px solid $color-gray-medium;
-  border-radius: 2rem;
+  &::-webkit-slider-thumb {
+    @include range-thumb;
+    appearance: none;
+    margin-top: px-to-rem(-3px); // magic number
+  }
+
+  &::-moz-range-thumb {
+    @include range-thumb;
+  }
+
+  &::-ms-thumb {
+    @include range-thumb;
+  }
+
+  &::-ms-fill-lower {
+    @include range-ms-fill;
+  }
+
+  &::-ms-fill-upper {
+    @include range-ms-fill;
+  }
 }
 
 // File input type
@@ -338,31 +322,34 @@ legend {
 
 // Memorable dates
 
-.usa-date-of-birth {
-  label {
-    margin-top: 0;
-  }
-
-  [type=number]::-webkit-inner-spin-button,
-  [type=number]::-webkit-outer-spin-button {
-    appearance: none;
-    margin: 0;
-  }
-
+.usa-memorable-date {
+  display: flex;
   [type=number] {
     -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+
+    &::-webkit-contacts-auto-fill-button {
+      visibility: hidden;
+      display: none !important; /* stylelint-disable-line declaration-no-important */
+      pointer-events: none;
+      height: 0;
+      width: 0;
+      margin: 0;
+    }
   }
 }
 
 .usa-form-group-day,
 .usa-form-group-month,
 .usa-form-group-year {
-  clear: none;
-  float: left;
-  margin-right: 1.5rem;
-  width: 5rem;
+  @include u-flex(auto);
+  margin-right: units(2);
+  width: units(6);
 }
 
 .usa-form-group-year {
-  width: 7rem;
+  width: units(9);
 }

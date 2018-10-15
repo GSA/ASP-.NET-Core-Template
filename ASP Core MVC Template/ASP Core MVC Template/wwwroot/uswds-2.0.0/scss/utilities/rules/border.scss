@@ -33,7 +33,7 @@ $u-border: (
       'left': '-left',
     ),
     values: map-collect(
-      get-plugins($border-plugins),
+      get-palettes($border-palettes),
       $border-manual-values
     ),
     valueAppend: ' solid',
@@ -41,4 +41,4 @@ $u-border: (
     property: 'border',
     type: 'utility',
   )
-)
+);

@@ -21,11 +21,11 @@ $u-left: (
     base: 'left',
     modifiers: null,
     values: map-collect(
-      get-plugins($left-plugins),
+      get-palettes($left-palettes),
       $left-manual-values
     ),
     settings: $left-settings,
     property: 'left',
     type: 'utility',
   )
-)
+);

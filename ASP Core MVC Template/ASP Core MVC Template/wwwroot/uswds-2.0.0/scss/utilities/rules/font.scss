@@ -31,11 +31,11 @@ $u-font: (
     base: 'font',
     modifiers: null,
     values: map-collect(
-      get-plugins($font-plugins),
+      get-palettes($font-palettes),
       $font-manual-values
     ),
     settings: $font-settings,
     property: 'font-size',
     type: 'utility',
   )
-)
+);

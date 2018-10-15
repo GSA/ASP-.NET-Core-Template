@@ -21,11 +21,11 @@ $u-bottom: (
     base: 'bottom',
     modifiers: null,
     values: map-collect(
-      get-plugins($bottom-plugins),
+      get-palettes($bottom-palettes),
       $bottom-manual-values
     ),
     settings: $bottom-settings,
     property: 'bottom',
     type: 'utility',
   )
-)
+);

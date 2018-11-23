@@ -1,14 +1,11 @@
 $border-utilities: (
-  width: map-collect(
+  'width': map-collect(
     map-deep-get($system-properties, border-width, standard),
     map-deep-get($system-properties, border-width, extended)
   ),
-  style: map-collect(
+  'style': map-collect(
     map-deep-get($system-properties, border-style, standard),
     map-deep-get($system-properties, border-style, extended)
-  ),
-  color: map-collect(
-    $system-required-colors
   )
 );
 
@@ -19,6 +16,8 @@ $border-utilities: (
     $important: ' !important';
   }
   $has-style: false;
+  $widths: map-get($border-utilities, 'width');
+
   @each $this-value in $value {
     $match: false;
     @if map-has-key($all-color-shortcodes, smart-quote($this-value)) {
@@ -40,58 +39,78 @@ $border-utilities: (
       }
     }
     @else if type-of($this-value) == 'number' {
-      $converted-value: number-to-value($this-value);
-      $widths: map-get($border-utilities, width);
+      $converted-value: number-to-token($this-value);
       @if map-has-key($widths, $converted-value) {
         $match: true;
         $final-value: map-get($widths, $converted-value);
         @if $side == n {
-          border-width: $final-value#{$important};
+          border-width: unquote('#{$final-value}#{$important}');
         }
         @else if $side == x {
-          border-left-width: $final-value#{$important};
-          border-right-width: $final-value#{$important};
+          border-left-width: unquote('#{$final-value}#{$important}');
+          border-right-width: unquote('#{$final-value}#{$important}');
         }
         @else if $side == y {
-          border-bottom-width: $final-value#{$important};
-          border-top-width: $final-value#{$important};
+          border-bottom-width: unquote('#{$final-value}#{$important}');
+          border-top-width: unquote('#{$final-value}#{$important}');
         }
         @else {
-          border-#{$side}-width: $final-value#{$important};
+          border-#{$side}-width: unquote('#{$final-value}#{$important}');
         }
       }
       @else {
         @error '#{$this-value} is not a valid border width. Accepted values: #{map-keys($widths)}';
       }
     }
+    @else if map-has-key($widths, smart-quote($this-value)) {
+      $match: true;
+      $this-value: smart-quote($this-value);
+      $final-value: map-get($widths, $this-value);
+      @if $side == n {
+        border-width: unquote('#{$final-value}#{$important}');
+      }
+      @else if $side == x {
+        border-left-width: unquote('#{$final-value}#{$important}');
+        border-right-width: unquote('#{$final-value}#{$important}');
+      }
+      @else if $side == y {
+        border-bottom-width: unquote('#{$final-value}#{$important}');
+        border-top-width: unquote('#{$final-value}#{$important}');
+      }
+      @else {
+        border-#{$side}-width: unquote('#{$final-value}#{$important}');
+      }
+    }
     @else {
       $converted-value: smart-quote($this-value);
-      $styles: map-get($border-utilities, style);
+      $styles: map-get($border-utilities, 'style');
       @if map-has-key($styles, $converted-value) {
         $match: true;
         $has-style: true;
         $final-value: map-get($styles, $converted-value);
         @if $side == n {
-          border-style: $final-value#{$important};
+          border-style: unquote('#{$final-value}#{$important}');
         }
         @else if $side == x {
-          border-left-style: $final-value#{$important};
-          border-right-style: $final-value#{$important};
+          border-left-style: unquote('#{$final-value}#{$important}');
+          border-right-style: unquote('#{$final-value}#{$important}');
         }
         @else if $side == y {
-          border-bottom-style: $final-value#{$important};
-          border-top-style: $final-value#{$important};
+          border-bottom-style: unquote('#{$final-value}#{$important}');
+          border-top-style: unquote('#{$final-value}#{$important}');
         }
         @else {
-          border-#{$side}-style: $final-value#{$important};
+          border-#{$side}-style: unquote('#{$final-value}#{$important}');
         }
       }
       @else {
-        @error '#{$this-value} is not a valid border style.';
+        @error '`#{$this-value}` is not a valid `border` token. '
+          + 'Use valid color, units, and border-style tokens '
+          + 'separated by commas.';
       }
     }
     @if not $match {
-      @error '`#{$this-value}` is not a valid `border` value.';
+      @error '`#{$this-value}` is not a valid `border` token.';
     }
   }
   @if not $has-style {

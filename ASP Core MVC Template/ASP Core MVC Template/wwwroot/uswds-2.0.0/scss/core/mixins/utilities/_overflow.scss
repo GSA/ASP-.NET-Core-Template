@@ -1,4 +1,4 @@
-// Outputs line-height
+// Outputs overflow
 
 @mixin u-overflow($value...) {
   $important: null;
@@ -7,4 +7,22 @@
     $important: ' !important';
   }
   overflow: get-uswds-value(overflow, $value...) #{$important};
+}
+
+@mixin u-overflow-x($value...) {
+  $important: null;
+  @if has-important($value) {
+    $value: remove($value, '!important');
+    $important: ' !important';
+  }
+  overflow-x: get-uswds-value(overflow, $value...) #{$important};
+}
+
+@mixin u-overflow-y($value...) {
+  $important: null;
+  @if has-important($value) {
+    $value: remove($value, '!important');
+    $important: ' !important';
+  }
+  overflow-y: get-uswds-value(overflow, $value...) #{$important};
 }

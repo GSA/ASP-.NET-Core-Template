@@ -126,12 +126,12 @@ Units
 */
 
 $system-spacing-em: (
- small: (
-   '05em':  .5em,
-   1em:     1em,
-   105em:   1.5em,
-   2em:     2em,
- ),
+  small: (
+    '05em':  .5em,
+    1em:     1em,
+    105em:   1.5em,
+    2em:     2em,
+  ),
 );
 
 /*
@@ -157,14 +157,187 @@ $system-layout-grid-widths: (
 
 /*
 ----------------------------------------
-Type scale
+Font stacks
 ----------------------------------------
 */
 
-$all-font-definitions: map-merge(
-  $system-font-definitions,
-  $theme-font-definitions
+$font-stack-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-stack-georgia: 'Georgia', 'Cambria', 'Times New Roman', 'Times', serif;
+$font-stack-helvetica: 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+$font-stack-monospace: 'Bitstream Vera Sans Mono', 'Consolas', 'Courier', monospace;
+
+/*
+----------------------------------------
+Typeface
+----------------------------------------
+*/
+
+$system-typeface-tokens: (
+  'system': (
+    display-name: null,
+    cap-height: 362px,
+    stack: $font-stack-system,
+    system-font: true,
+  ),
+  'georgia': (
+    display-name: 'Georgia',
+    cap-height: 346px,
+    stack: $font-stack-georgia,
+    system-font: true,
+  ),
+  'helvetica': (
+    display-name: 'Helvetica Neue',
+    cap-height: 357px,
+    stack: $font-stack-helvetica,
+    system-font: true,
+  ),
+  'tahoma': (
+    display-name: 'Tahoma',
+    cap-height: 363px,
+    stack: $font-stack-system,
+  ),
+  'verdana': (
+    display-name: 'Verdana',
+    cap-height: 364px,
+    stack: $font-stack-system,
+  ),
+  'open-sans': (
+    display-name: 'Open Sans',
+    cap-height: 357px,
+    stack: $font-stack-system,
+  ),
+  'merriweather': (
+    display-name: 'Merriweather Web',
+    cap-height: 371px,
+    stack: $font-stack-georgia,
+    src: (
+      dir: 'merriweather',
+      roman: (
+        100: false,
+        200: false,
+        300: 'Latin-Merriweather-Light',
+        400: 'Latin-Merriweather-Regular',
+        500: false,
+        600: false,
+        700: 'Latin-Merriweather-Bold',
+        800: false,
+        900: 'Latin-Merriweather-Black',
+      ),
+      italic: (
+        100: false,
+        200: false,
+        300: 'Latin-Merriweather-LightItalic',
+        400: 'Latin-Merriweather-Italic',
+        500: false,
+        600: false,
+        700: 'Latin-Merriweather-BoldItalic',
+        800: false,
+        900: 'Latin-Merriweather-BlackItalic',
+      ),
+    ),
+  ),
+  'roboto-mono': (
+    display-name: 'Roboto Mono Web',
+    cap-height: 380px,
+    stack: $font-stack-monospace,
+    src: (
+      dir: 'roboto-mono',
+      roman: (
+        100: 'roboto-mono-v5-latin-100',
+        200: false,
+        300: 'roboto-mono-v5-latin-300',
+        400: 'roboto-mono-v5-latin-regular',
+        500: 'roboto-mono-v5-latin-500',
+        600: false,
+        700: 'roboto-mono-v5-latin-700',
+        800: false,
+        900: false,
+      ),
+      italic: (
+        100: 'roboto-mono-v5-latin-100italic',
+        200: false,
+        300: 'roboto-mono-v5-latin-300italic',
+        400: 'roboto-mono-v5-latin-italic',
+        500: 'roboto-mono-v5-latin-500italic',
+        600: false,
+        700: 'roboto-mono-v5-latin-700italic',
+        800: false,
+        900: false,
+      ),
+    ),
+  ),
+  'source-sans-pro': (
+    display-name: 'Source Sans Pro Web',
+    cap-height: 340px,
+    stack: $font-stack-helvetica,
+    src: (
+      dir: 'source-sans-pro',
+      roman: (
+        100: false,
+        200: 'sourcesanspro-extralight-webfont',
+        300: 'sourcesanspro-light-webfont',
+        400: 'sourcesanspro-regular-webfont',
+        500: false,
+        600: 'sourcesanspro-semibold-webfont',
+        700: 'sourcesanspro-bold-webfont',
+        800: false,
+        900: 'sourcesanspro-black-webfont',
+      ),
+      italic: (
+        100: false,
+        200: 'sourcesanspro-extralightitalic-webfont',
+        300: 'sourcesanspro-lightitalic-webfont',
+        400: 'sourcesanspro-italic-webfont',
+        500: false,
+        600: 'sourcesanspro-semibolditalic-webfont',
+        700: 'sourcesanspro-bolditalic-webfont',
+        800: false,
+        900: 'sourcesanspro-blackitalic-webfont',
+      ),
+    ),
+  ),
+  'public-sans': (
+    display-name: 'Public Sans Web',
+    cap-height: 362px,
+    stack: $font-stack-system,
+    src: (
+      dir: 'public-sans',
+      roman: (
+        100: 'PublicSans-Thin',
+        200: 'PublicSans-ExtraLight',
+        300: 'PublicSans-Light',
+        400: 'PublicSans-Regular',
+        500: 'PublicSans-Medium',
+        600: 'PublicSans-SemiBold',
+        700: 'PublicSans-Bold',
+        800: 'PublicSans-ExtraBold',
+        900: 'PublicSans-Black',
+      ),
+      italic: (
+        100: 'PublicSans-ThinItalic',
+        200: 'PublicSans-ExtraLightItalic',
+        300: 'PublicSans-LightItalic',
+        400: 'PublicSans-Italic',
+        500: 'PublicSans-MediumItalic',
+        600: 'PublicSans-SemiBoldItalic',
+        700: 'PublicSans-BoldItalic',
+        800: 'PublicSans-ExtraBoldItalic',
+        900: 'PublicSans-BlackItalic',
+      ),
+    ),
+  ),
 );
+
+$all-typeface-tokens: map-merge(
+  $system-typeface-tokens,
+  $theme-typeface-tokens
+);
+
+/*
+----------------------------------------
+Typescale
+----------------------------------------
+*/
 
 $system-type-scale: (
   'micro':   10px,
@@ -196,11 +369,12 @@ Measure
 ----------------------------------------
 */
 
-$system-measure-smaller:      40ch;
-$system-measure-small:        60ch;
-$system-measure-base:         66ch;
-$system-measure-large:        72ch;
-$system-measure-larger:       77ch;
+$system-measure-smaller:      44ex;
+$system-measure-small:        60ex;
+$system-measure-base:         64ex;
+$system-measure-large:        68ex;
+$system-measure-larger:       72ex;
+$system-measure-largest:      88ex;
 
 /*
 ----------------------------------------
@@ -236,6 +410,7 @@ Colors
 ----------------------------------------
 */
 
+@import './system-tokens/red-cool';
 @import './system-tokens/red';
 @import './system-tokens/red-warm';
 @import './system-tokens/orange-warm';
@@ -248,6 +423,7 @@ Colors
 @import './system-tokens/mint';
 @import './system-tokens/mint-cool';
 @import './system-tokens/cyan';
+@import './system-tokens/blue-cool';
 @import './system-tokens/blue';
 @import './system-tokens/blue-warm';
 @import './system-tokens/indigo-cool';
@@ -291,6 +467,7 @@ $system-color-white-transparent: (
 );
 
 $system-colors: map-collect(
+  $system-color-red-cool,
   $system-color-red,
   $system-color-red-warm,
   $system-color-orange-warm,
@@ -303,6 +480,7 @@ $system-colors: map-collect(
   $system-color-mint,
   $system-color-mint-cool,
   $system-color-cyan,
+  $system-color-blue-cool,
   $system-color-blue,
   $system-color-blue-warm,
   $system-color-indigo-cool,
@@ -351,6 +529,28 @@ $tokens-color-basic: (
   'black-transparent':  false,
   'white-transparent':  false,
 );
+
+//red-cool
+$color-red-cool-5:   get-system-color('red-cool', 5);
+$color-red-cool-10:  get-system-color('red-cool', 10);
+$color-red-cool-20:  get-system-color('red-cool', 20);
+$color-red-cool-30:  get-system-color('red-cool', 30);
+$color-red-cool-40:  get-system-color('red-cool', 40);
+$color-red-cool-50:  get-system-color('red-cool', 50);
+$color-red-cool-60:  get-system-color('red-cool', 60);
+$color-red-cool-70:  get-system-color('red-cool', 70);
+$color-red-cool-80:  get-system-color('red-cool', 80);
+$color-red-cool-90:  get-system-color('red-cool', 90);
+$color-red-cool-5v:  get-system-color('red-cool', 5, 'vivid');
+$color-red-cool-10v: get-system-color('red-cool', 10, 'vivid');
+$color-red-cool-20v: get-system-color('red-cool', 20, 'vivid');
+$color-red-cool-30v: get-system-color('red-cool', 30, 'vivid');
+$color-red-cool-40v: get-system-color('red-cool', 40, 'vivid');
+$color-red-cool-50v: get-system-color('red-cool', 50, 'vivid');
+$color-red-cool-60v: get-system-color('red-cool', 60, 'vivid');
+$color-red-cool-70v: get-system-color('red-cool', 70, 'vivid');
+$color-red-cool-80v: get-system-color('red-cool', 80, 'vivid');
+$color-red-cool-90v: get-system-color('red-cool', 90, 'vivid');
 
 //red
 $color-red-5:   get-system-color('red', 5);
@@ -617,6 +817,28 @@ $color-cyan-70v:  get-system-color('cyan', 70, 'vivid');
 $color-cyan-80v:  get-system-color('cyan', 80, 'vivid');
 $color-cyan-90v:  get-system-color('cyan', 90, 'vivid');
 
+// blue-cool
+$color-blue-cool-5:    get-system-color('blue-cool', 5);
+$color-blue-cool-10:   get-system-color('blue-cool', 10);
+$color-blue-cool-20:   get-system-color('blue-cool', 20);
+$color-blue-cool-30:   get-system-color('blue-cool', 30);
+$color-blue-cool-40:   get-system-color('blue-cool', 40);
+$color-blue-cool-50:   get-system-color('blue-cool', 50);
+$color-blue-cool-60:   get-system-color('blue-cool', 60);
+$color-blue-cool-70:   get-system-color('blue-cool', 70);
+$color-blue-cool-80:   get-system-color('blue-cool', 80);
+$color-blue-cool-90:   get-system-color('blue-cool', 90);
+$color-blue-cool-5v:   get-system-color('blue-cool', 5, 'vivid');
+$color-blue-cool-10v:  get-system-color('blue-cool', 10, 'vivid');
+$color-blue-cool-20v:  get-system-color('blue-cool', 20, 'vivid');
+$color-blue-cool-30v:  get-system-color('blue-cool', 30, 'vivid');
+$color-blue-cool-40v:  get-system-color('blue-cool', 40, 'vivid');
+$color-blue-cool-50v:  get-system-color('blue-cool', 50, 'vivid');
+$color-blue-cool-60v:  get-system-color('blue-cool', 60, 'vivid');
+$color-blue-cool-70v:  get-system-color('blue-cool', 70, 'vivid');
+$color-blue-cool-80v:  get-system-color('blue-cool', 80, 'vivid');
+$color-blue-cool-90v:  get-system-color('blue-cool', 90, 'vivid');
+
 // blue
 $color-blue-5:    get-system-color('blue', 5);
 $color-blue-10:   get-system-color('blue', 10);
@@ -869,6 +1091,26 @@ $system-color-shortcodes: (
   'transparent':          transparent,
   'black':                black,
   'white':                white,
+  'red-cool-5':           $color-red-cool-5,
+  'red-cool-10':          $color-red-cool-10,
+  'red-cool-20':          $color-red-cool-20,
+  'red-cool-30':          $color-red-cool-30,
+  'red-cool-40':          $color-red-cool-40,
+  'red-cool-50':          $color-red-cool-50,
+  'red-cool-60':          $color-red-cool-60,
+  'red-cool-70':          $color-red-cool-70,
+  'red-cool-80':          $color-red-cool-80,
+  'red-cool-90':          $color-red-cool-90,
+  'red-cool-5v':          $color-red-cool-5v,
+  'red-cool-10v':         $color-red-cool-10v,
+  'red-cool-20v':         $color-red-cool-20v,
+  'red-cool-30v':         $color-red-cool-30v,
+  'red-cool-40v':         $color-red-cool-40v,
+  'red-cool-50v':         $color-red-cool-50v,
+  'red-cool-60v':         $color-red-cool-60v,
+  'red-cool-70v':         $color-red-cool-70v,
+  'red-cool-80v':         $color-red-cool-80v,
+  'red-cool-90v':         $color-red-cool-90v,
   'red-5':                $color-red-5,
   'red-10':               $color-red-10,
   'red-20':               $color-red-20,
@@ -1109,6 +1351,26 @@ $system-color-shortcodes: (
   'cyan-70v':             $color-cyan-70v,
   'cyan-80v':             $color-cyan-80v,
   'cyan-90v':             $color-cyan-90v,
+  'blue-cool-5':          $color-blue-cool-5,
+  'blue-cool-10':         $color-blue-cool-10,
+  'blue-cool-20':         $color-blue-cool-20,
+  'blue-cool-30':         $color-blue-cool-30,
+  'blue-cool-40':         $color-blue-cool-40,
+  'blue-cool-50':         $color-blue-cool-50,
+  'blue-cool-60':         $color-blue-cool-60,
+  'blue-cool-70':         $color-blue-cool-70,
+  'blue-cool-80':         $color-blue-cool-80,
+  'blue-cool-90':         $color-blue-cool-90,
+  'blue-cool-5v':         $color-blue-cool-5v,
+  'blue-cool-10v':        $color-blue-cool-10v,
+  'blue-cool-20v':        $color-blue-cool-20v,
+  'blue-cool-30v':        $color-blue-cool-30v,
+  'blue-cool-40v':        $color-blue-cool-40v,
+  'blue-cool-50v':        $color-blue-cool-50v,
+  'blue-cool-60v':        $color-blue-cool-60v,
+  'blue-cool-70v':        $color-blue-cool-70v,
+  'blue-cool-80v':        $color-blue-cool-80v,
+  'blue-cool-90v':        $color-blue-cool-90v,
   'blue-5':               $color-blue-5,
   'blue-10':              $color-blue-10,
   'blue-20':              $color-blue-20,

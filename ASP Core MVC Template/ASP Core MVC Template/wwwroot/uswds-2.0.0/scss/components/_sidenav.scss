@@ -1,6 +1,6 @@
 .usa-sidenav {
   @include border-box-sizing;
-  @include nav-list;
+  @include nav-list('sidenav');
   @include typeset($theme-sidenav-font-family, 'sm', 3);
   border-bottom: units(1px) solid color('base-lighter');
 
@@ -13,7 +13,7 @@
   }
 }
 
-.usa-sidenav-sublist {
+.usa-sidenav__sublist {
   @include nav-sublist;
   font-size: font-size($theme-sidenav-font-family, 'xs');
 }

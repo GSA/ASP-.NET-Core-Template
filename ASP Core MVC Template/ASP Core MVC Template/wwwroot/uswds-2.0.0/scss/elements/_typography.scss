@@ -12,25 +12,22 @@ html {
 
 .usa-prose {
   @include typeset($theme-prose-font-family);
-}
-
-@mixin theme-content-styles {
-  @if $theme-content-styles == 'scoped' {
-    .usa-prose > {
-      // * + p { margin-top }
-      @include usa-content-styles;
-    }
-  }
-  @else if $theme-content-styles == 'global' {
+  & > {
     @include usa-content-styles;
   }
-  @else {
-    // Default nothing if it’s neither
-  }
 }
 
-@include theme-global-styles-basic;
-@include theme-content-styles;
+@if $theme-global-paragraph-styles == true {
+  @include usa-paragraph-style;
+}
+
+@if $theme-global-link-styles == true {
+  @include usa-link-style;
+}
+
+@if $theme-global-content-styles == true {
+  @include usa-content-styles;
+}
 
 .usa-paragraph {
   @include typeset-p;
@@ -44,12 +41,12 @@ html {
 // [href^="http:"]:not([href*="my-domain.com"])
 // [href^="https:"]:not([href*="my-domain.com"])
 
-.usa-external_link {
+.usa-link--external {
   @include external-link(external-link, external-link-hover);
-}
 
-.usa-external_link-alt {
-  @include external-link(external-link-alt, external-link-alt-hover);
+  &.usa-link--alt {
+    @include external-link(external-link-alt, external-link-alt-hover);
+  }
 }
 
 // Remove user agent styles
@@ -65,14 +62,10 @@ dfn {
 
 .usa-content {
   p,
-  ul:not(.usa-accordion):not(.usa-accordion-bordered),
-  ol:not(.usa-accordion):not(.usa-accordion-bordered) {
+  ul:not(.usa-accordion):not(.usa-accordion--bordered),
+  ol:not(.usa-accordion):not(.usa-accordion--bordered) {
     max-width: measure($theme-text-measure);
   }
-}
-
-.usa-content-list {
-  max-width: measure($theme-text-measure);
 }
 
 .usa-display {
@@ -88,7 +81,7 @@ dfn {
   }
 }
 
-.usa-font-lead {
+.usa-intro {
   @include typeset(
     $theme-lead-font-family,
     $theme-lead-font-size,
@@ -98,7 +91,7 @@ dfn {
   max-width: measure($theme-lead-measure);
 }
 
-.usa-background-dark {
+.usa-dark-background {
   @include add-knockout-font-smoothing;
   background-color: color('base-darker');
 

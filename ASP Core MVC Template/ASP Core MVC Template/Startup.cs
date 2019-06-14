@@ -30,6 +30,11 @@ namespace ASP_Core_MVC_Template
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //
+            // dependency injection for PostgreSQL or MySQL database context 
+            //
+
+            // dbContext dependency injection code 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

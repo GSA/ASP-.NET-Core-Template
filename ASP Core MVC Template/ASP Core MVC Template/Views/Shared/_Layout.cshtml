@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - USWD</title>
+    <title>@ViewData["Title"] - FM IT ASP.NET Core Template</title>
     <!--stylesheets-->
     <environment include="Development">
-        <link rel="stylesheet" href="~/uswds-2.0.0/css/uswds.css" />
+        <link rel="stylesheet" href="~/uswds/css/uswds.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/uswds-2.0.0/css/uswds.min.css" />
+        <link rel="stylesheet" href="~/uswds/css/uswds.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     </environment>
@@ -19,29 +19,28 @@
 <body>
     <a class="usa-skipnav" href="#main-content">Skip to main content</a>
     <!-- Gov banner BEGIN -->
-
     <div class="usa-banner">
         <div class="usa-accordion">
-            <header class="usa-banner-header">
-                <div class="usa-banner-inner">
+            <header class="usa-banner__header">
+                <div class="usa-banner__inner">
                     <div class="grid-col-auto">
-                        <img class="usa-banner-header-flag" src="~/uswds-2.0.0/img/favicons/favicon-57.png" alt="U.S. flag">
+                        <img class="usa-banner__header-flag" src="~/uswds/img/us_flag_small.png" alt="U.S. flag">
                     </div>
                     <div class="grid-col-fill tablet:grid-col-auto">
-                        <p class="usa-banner-header-text">An official website of the United States government</p>
-                        <p class="usa-banner-header-action" aria-hidden="true">Here’s how you know</p>
+                        <p class="usa-banner__header-text">An official website of the United States government</p>
+                        <p class="usa-banner__header-action" aria-hidden="true">Here’s how you know</p>
                     </div>
-                    <button class="usa-accordion-button usa-banner-button"
+                    <button class="usa-accordion__button usa-banner__button"
                             aria-expanded="false" aria-controls="gov-banner">
-                        <span class="usa-banner-button-text">Here's how you know</span>
+                        <span class="usa-banner__button-text">Here’s how you know</span>
                     </button>
                 </div>
             </header>
-            <div class="usa-banner-content usa-accordion-content" id="gov-banner">
+            <div class="usa-banner__content usa-accordion__content" id="gov-banner">
                 <div class="grid-row grid-gap-lg">
-                    <div class="usa-banner-guidance-gov tablet:grid-col-6">
-                        <img class="usa-banner-icon usa-media_block-img" src="~/uswds-2.0.0/img/icon-dot-gov.svg" alt="Dot gov">
-                        <div class="usa-media_block-body">
+                    <div class="usa-banner__guidance tablet:grid-col-6">
+                        <img class="usa-banner__icon usa-media-block__img" src="~/uswds/img/icon-dot-gov.svg" alt="Dot gov">
+                        <div class="usa-media-block__body">
                             <p>
                                 <strong>The .gov means it’s official.</strong>
                                 <br>
@@ -49,9 +48,9 @@
                             </p>
                         </div>
                     </div>
-                    <div class="usa-banner-guidance-ssl tablet:grid-col-6">
-                        <img class="usa-banner-icon usa-media_block-img" src="~/uswds-2.0.0/img/icon-https.svg" alt="Https">
-                        <div class="usa-media_block-body">
+                    <div class="usa-banner__guidance tablet:grid-col-6">
+                        <img class="usa-banner__icon usa-media-block__img" src="~/uswds/img/icon-https.svg" alt="Https">
+                        <div class="usa-media-block__body">
                             <p>
                                 <strong>The site is secure.</strong>
                                 <br>
@@ -68,130 +67,133 @@
 
 
     <div class="usa-overlay"></div>
-    <header class="usa-header usa-header-basic" role="banner">
-        <!-- <div class="usa-nav-container bg-primary-darker"> -->
-        <div class="usa-nav-container">
-            <div class="usa-navbar">
-                <div class="usa-logo" id="basic-logo">
-                    <em class="usa-logo-text"><a href="/" title="Home" aria-label="Home">Project title</a></em>
-                </div>
-                <button class="usa-menu-btn bg-secondary-darker">Menu</button>
+    <header class="usa-header usa-header--extended" role="banner">
+        <div class="usa-navbar">
+            <div class="usa-logo" id="extended-logo">
+                <em class="usa-logo__text"><a href="/" title="Home" aria-label="Home">Project title</a></em>
             </div>
-            <nav role="navigation" class="usa-nav">
-                <button class="usa-nav-close"><img src="~/uswds-2.0.0/img/close.svg" alt="close"></button>
-                <ul class="usa-nav-primary usa-accordion">
-                    <li class="usa-nav-primary-item">
-                        <button class="usa-accordion-button usa-nav-link  usa-current" aria-expanded="false" aria-controls="basic-nav-section-one"><span>Current section</span></button>
-                        <ul id="basic-nav-section-one" class="usa-nav-submenu">
-                            <li class="usa-nav-submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav-submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav-submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="usa-nav-primary-item">
-                        <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="basic-nav-section-two"><span>Section</span></button>
-                        <ul id="basic-nav-section-two" class="usa-nav-submenu">
-                            <li class="usa-nav-submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav-submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav-submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="usa-nav-primary-item">
-                        <a class="usa-nav-link" href="javascript:void(0)"><span>Simple link</span></a>
-                    </li>
-                </ul><form class="usa-search usa-search-small ">
-                    <div role="search">
-                        <label class="usa-sr-only" for="basic-search-field-small">Search small</label>
-                        <input class="usa-input" id="basic-search-field-small" type="search" name="search">
-                        <button class="usa-button" type="submit"><span class="usa-sr-only">Search</span></button>
-                    </div>
-                </form>
-            </nav>
+            <button class="usa-menu-btn">Menu</button>
         </div>
+        <nav role="navigation" class="usa-nav">
+            <div class="usa-nav__inner">
+                <button class="usa-nav__close"><img src="/assets/img/close.svg" alt="close"></button>
+                <ul class="usa-nav__primary usa-accordion">
+                    <li class="usa-nav__primary-item">
+                        <button class="usa-accordion__button usa-nav__link  usa-current" aria-expanded="false" aria-controls="extended-nav-section-one"><span>Current section</span></button>
+                        <ul id="extended-nav-section-one" class="usa-nav__submenu">
+                            <li class="usa-nav__submenu-item">
+                                <a href="#">Navigation link</a>
+                            </li>
+                            <li class="usa-nav__submenu-item">
+                                <a href="#">Navigation link</a>
+                            </li>
+                            <li class="usa-nav__submenu-item">
+                                <a href="#">Navigation link</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="usa-nav__primary-item">
+                        <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="extended-nav-section-two"><span>Section</span></button>
+                        <ul id="extended-nav-section-two" class="usa-nav__submenu">
+                            <li class="usa-nav__submenu-item">
+                                <a href="#">Navigation link</a>
+                            </li>
+                            <li class="usa-nav__submenu-item">
+                                <a href="#">Navigation link</a>
+                            </li>
+                            <li class="usa-nav__submenu-item">
+                                <a href="#">Navigation link</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="usa-nav__primary-item">
+                        <a class="usa-nav__link" href="javascript:void(0)"><span>Simple link</span></a>
+                    </li>
+                </ul><div class="usa-nav__secondary">
+                    <ul class="usa-nav__secondary-links">
+                        <li class="usa-nav__secondary-item">
+                            <a href="">Secondary link</a>
+                        </li>
+                        <li class="usa-nav__secondary-item">
+                            <a href="">Another secondary link</a>
+                        </li>
+                    </ul><form class="usa-search usa-search--small ">
+                        <div role="search">
+                            <label class="usa-sr-only" for="extended-search-field-small">Search small</label>
+                            <input class="usa-input" id="extended-search-field-small" type="search" name="search">
+                            <button class="usa-button" type="submit"><span class="usa-sr-only">Search</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
     </header>
 
 
 
-
-
-
-    <partial name="_CookieConsentPartial" />
-
-    <main class="usa-layout-docs usa-section" id="main-content">
+    <main id="main-content">
+        <partial name="_CookieConsentPartial" />
         @RenderBody()
-        <hr />
-        <footer class="usa-footer usa-footer-slim" role="contentinfo">
-            <div class="grid-container usa-footer-return-to-top">
-                <a href="#">Return to top</a>
-            </div>
-            <div class="usa-footer-primary-section">
-                <div class="grid-row grid-row maxw-desktop margin-x-auto desktop:padding-x-4">
-                    <div class="mobile-lg:grid-col-8">
-                        <nav class="usa-footer-nav">
-                            <ul class="add-list-reset grid-row grid-gap">
-                                <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer-primary-content">
-                                    <a class="usa-footer-primary-link" href="javascript:void(0);">Home</a>
-                                </li>
-                                <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer-primary-content">
-                                    <a class="usa-footer-primary-link" href="javascript:void(0);">Customer Services</a>
-                                </li>
-                                <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer-primary-content">
-                                    <a class="usa-footer-primary-link" href="javascript:void(0);">GSA.govk</a>
-                                </li>
-                                <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer-primary-content">
-                                    <a class="usa-footer-primary-link" href="javascript:void(0);">Corporate IT Services</a>
-                                </li>
-                            </ul>
-                        </nav>
+
+    </main>
+
+
+    <footer class="usa-footer" role="contentinfo">
+        <div class="grid-container usa-footer__return-to-top">
+            <a href="#">Return to top</a>
+        </div>
+        <div class="usa-footer__primary-section">
+            <nav class="usa-footer__nav">
+                <ul class="add-list-reset grid-row grid-gap">
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="javascript:void(0);">Home</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="javascript:void(0);">Customer Services</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="javascript:void(0);">GSA.gov</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="javascript:void(0);">Corporate IT Services</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="usa-footer__secondary-section">
+            <div class="grid-container">
+                <div class="grid-row grid-gap">
+                    <div class="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
+                        <div class="mobile-lg:grid-col-auto">
+                            <img class="usa-footer__logo-img" src="~/images/gsa/nav-logo.jpg" alt="GAS logo">
+                        </div>
+                        <div class="mobile-lg:grid-col-auto">
+                            <h3 class="usa-footer__logo-heading">General Services Administration</h3>
+                        </div>
                     </div>
-                    <div class="mobile-lg:grid-col-4">
-                        <address class="usa-footer-address">
-                            <div class="grid-row grid-gap mobile-lg:grid-gap-0">
-                                <div class="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
-                                    <div class="usa-footer-contact_info">
-                                        <a href="tel:1-800-555-5555">(800) CALL-GOVT</a>
-                                    </div>
+                    <div class="usa-footer__contact-links mobile-lg:grid-col-6">
+                        <h3 class="usa-footer__contact-heading">Agency Contact Info.</h3>
+                        <address class="usa-footer__address">
+                            <div class="usa-footer__contact-info grid-row grid-gap">
+                                <div class="grid-col-auto">
+                                    <a href="tel:1-800-555-5555">(800) CALL-FMIT</a>
                                 </div>
-                                <div class="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
-                                    <div class="usa-footer-contact_info">
-                                        <a href="mailto:info@agency.gov">info@agency.gov</a>
-                                    </div>
+                                <div class="grid-col-auto">
+                                    <a href="mailto:support@gsa.gov">support@gsa.gov</a>
                                 </div>
                             </div>
                         </address>
                     </div>
                 </div>
             </div>
-            <div class="usa-footer-secondary-section">
-                <div class="grid-container">
-                    <div class="usa-footer-logo grid-row grid-gap-2">
-                        <div class="grid-col-auto">
-                            <img class="usa-footer-logo-img" src="~/images/gsa/nav-logo.jpg" alt="">
-                        </div>
-                        <div class="grid-col-auto">
-                            <h3 class="usa-footer-logo-heading">General Services Administration</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </main>
+        </div>
+    </footer>
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/uswds-2.0.0/js/uswds.min.js"></script>
+        <script src="~/uswds/js/uswds.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -200,7 +202,7 @@
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
                 integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"></script>
-        <script src="~/uswds-2.0.0/js/uswds.min.js"></script>
+        <script src="~/uswds/js/uswds.min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 

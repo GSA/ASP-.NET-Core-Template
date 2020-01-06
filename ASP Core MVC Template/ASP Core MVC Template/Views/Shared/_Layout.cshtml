@@ -1,45 +1,53 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FM IT ASP.NET Core Template</title>
-    <!--stylesheets-->
+    <title>@ViewData["Title"] - Core Web Template *** FOR U.S. GOVERNMENT USE ONLY ***</title>
+    <link href="~/lib/kendo-ui/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="~/lib/kendo-ui/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="~/lib/kendo-ui/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
     <environment include="Development">
-        <link rel="stylesheet" href="~/uswds/css/uswds.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/uswds-2.3.1/css/uswds.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/uswds/css/uswds.min.css" />
+        @* Remove BootstrapCDN *@
+        <link rel="stylesheet" href="~/uswds-2.3.1/css/uswds.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     </environment>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <script src="~/lib/kendo-ui/js/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/kendo-ui/js/jszip.min.js"></script>
+    <script src="~/lib/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="~/lib/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/uswds-2.3.1/js/uswds.min.js"></script>
 </head>
-<body>
+<body class="page-page-templates layout-styleguide">
+    <a id="top"></a>
     <a class="usa-skipnav" href="#main-content">Skip to main content</a>
-    <!-- Gov banner BEGIN -->
-    <div class="usa-banner">
+    <section class="usa-banner">
         <div class="usa-accordion">
-            <header class="usa-banner__header">
-                <div class="usa-banner__inner">
-                    <div class="grid-col-auto">
-                        <img class="usa-banner__header-flag" src="~/uswds/img/us_flag_small.png" alt="U.S. flag">
-                    </div>
-                    <div class="grid-col-fill tablet:grid-col-auto">
-                        <p class="usa-banner__header-text">An official website of the United States government</p>
-                        <p class="usa-banner__header-action" aria-hidden="true">Here’s how you know</p>
-                    </div>
+            <header class="usa-banner__header usa-banner__header--expanded">
+                <div class="grid-container usa-banner__inner">
+                    <img class="usa-banner__header-flag " src="~/uswds-2.3.1/img/us_flag_small.png" alt="U.S. flag">
+                    <span class="usa-banner__header-text">An official website of the United States government</span>
                     <button class="usa-accordion__button usa-banner__button"
                             aria-expanded="false" aria-controls="gov-banner">
-                        <span class="usa-banner__button-text">Here’s how you know</span>
+                        <span class="usa-banner__button-text">Here's how you know</span>
                     </button>
                 </div>
             </header>
-            <div class="usa-banner__content usa-accordion__content" id="gov-banner">
-                <div class="grid-row grid-gap-lg">
-                    <div class="usa-banner__guidance tablet:grid-col-6">
-                        <img class="usa-banner__icon usa-media-block__img" src="~/uswds/img/icon-dot-gov.svg" alt="Dot gov">
+            <div class="usa-banner__content grid-container usa-accordion__content" id="gov-banner">
+                <div class="grid-row">
+                    <div class="usa-banner__guidance grid-col-6">
+                        <img class="usa-banner__icon usa-media-block__img" src="~/uswds-2.3.1/img/icon-dot-gov.svg" alt="Dot gov">
                         <div class="usa-media-block__body">
                             <p>
                                 <strong>The .gov means it’s official.</strong>
@@ -48,8 +56,8 @@
                             </p>
                         </div>
                     </div>
-                    <div class="usa-banner__guidance tablet:grid-col-6">
-                        <img class="usa-banner__icon usa-media-block__img" src="~/uswds/img/icon-https.svg" alt="Https">
+                    <div class="usa-banner__guidance grid-col-6">
+                        <img class="usa-banner__icon usa-media-block__img" src="~/uswds-2.3.1/img/icon-https.svg" alt="Https">
                         <div class="usa-media-block__body">
                             <p>
                                 <strong>The site is secure.</strong>
@@ -61,151 +69,93 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Gov banner END -->
+    </section>
+    @*Body section*@
 
-
-
-    <div class="usa-overlay"></div>
-    <header class="usa-header usa-header--extended" role="banner">
-        <div class="usa-navbar">
-            <div class="usa-logo" id="extended-logo">
-                <em class="usa-logo__text"><a href="/" title="Home" aria-label="Home">Project title</a></em>
-            </div>
-            <button class="usa-menu-btn">Menu</button>
-        </div>
-        <nav role="navigation" class="usa-nav">
-            <div class="usa-nav__inner">
-                <button class="usa-nav__close"><img src="/assets/img/close.svg" alt="close"></button>
-                <ul class="usa-nav__primary usa-accordion">
-                    <li class="usa-nav__primary-item">
-                        <button class="usa-accordion__button usa-nav__link  usa-current" aria-expanded="false" aria-controls="extended-nav-section-one"><span>Current section</span></button>
-                        <ul id="extended-nav-section-one" class="usa-nav__submenu">
-                            <li class="usa-nav__submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav__submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav__submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="usa-nav__primary-item">
-                        <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="extended-nav-section-two"><span>Section</span></button>
-                        <ul id="extended-nav-section-two" class="usa-nav__submenu">
-                            <li class="usa-nav__submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav__submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                            <li class="usa-nav__submenu-item">
-                                <a href="#">Navigation link</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="usa-nav__primary-item">
-                        <a class="usa-nav__link" href="javascript:void(0)"><span>Simple link</span></a>
-                    </li>
-                </ul><div class="usa-nav__secondary">
-                    <ul class="usa-nav__secondary-links">
-                        <li class="usa-nav__secondary-item">
-                            <a href="">Secondary link</a>
-                        </li>
-                        <li class="usa-nav__secondary-item">
-                            <a href="">Another secondary link</a>
-                        </li>
-                    </ul><form class="usa-search usa-search--small ">
-                        <div role="search">
-                            <label class="usa-sr-only" for="extended-search-field-small">Search small</label>
-                            <input class="usa-input" id="extended-search-field-small" type="search" name="search">
-                            <button class="usa-button" type="submit"><span class="usa-sr-only">Search</span></button>
-                        </div>
-                    </form>
+    <header class="usa-header usa-header--basic">
+        <div class="usa-nav-container">
+            <div class="usa-navbar">
+                <div class="usa-logo">
+                    <img class="usa-header-slim-logo-img" src="~/images/gsa/nav-logo.jpg" alt="" hspace="5">
+                    <em class="usa-logo__text">
+                        <a href="~/"
+                           class="app-header"
+                           title="Home"
+                           aria-label="Home">
+                            Core Web Template
+                        </a>
+                    </em>
                 </div>
+                <button class="usa-menu-btn">Menu</button>
             </div>
-        </nav>
-    </header>
 
-
-
-    <main id="main-content">
-        <partial name="_CookieConsentPartial" />
-        @RenderBody()
-
-    </main>
-
-
-    <footer class="usa-footer" role="contentinfo">
-        <div class="grid-container usa-footer__return-to-top">
-            <a href="#">Return to top</a>
-        </div>
-        <div class="usa-footer__primary-section">
-            <nav class="usa-footer__nav">
-                <ul class="add-list-reset grid-row grid-gap">
-                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
-                        <a class="usa-footer__primary-link" href="javascript:void(0);">Home</a>
-                    </li>
-                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
-                        <a class="usa-footer__primary-link" href="javascript:void(0);">Customer Services</a>
-                    </li>
-                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
-                        <a class="usa-footer__primary-link" href="javascript:void(0);">GSA.gov</a>
-                    </li>
-                    <li class="mobile-lg:grid-col-4 desktop:grid-col-2 usa-footer__primary-content">
-                        <a class="usa-footer__primary-link" href="javascript:void(0);">Corporate IT Services</a>
-                    </li>
+            @* Navigation bar in the header *@
+            <nav aria-label="Primary navigation" class="usa-nav">
+                <button class="usa-nav__close">
+                    <img src="~/uswds-2.3.1/img/close.svg" alt="close">
+                </button>
+                <ul class="usa-nav__primary usa-accordion">
+                    @* App closure hides the menu. *@
+                    @if (ViewData["closeMessage"] == null)
+                    {
+                        <li class="usa-nav__primary-item">
+                            @if (Context.User.Identity.IsAuthenticated)
+                            {
+                                <a class="usa-nav__link" asp-controller="Login" asp-action="LogoutAsync">
+                                    <span>Log Out (@Context.User.Identity.Name)</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="usa-nav__link" asp-controller="Login" asp-action="LoginAsync">
+                                    <span>Log In</span>
+                                </a>
+                            }
+                        </li>
+                    }
                 </ul>
             </nav>
         </div>
+    </header>
+    <div class="usa-overlay"></div>
+    <main id="main-content"></main>
 
-        <div class="usa-footer__secondary-section">
-            <div class="grid-container">
-                <div class="grid-row grid-gap">
-                    <div class="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
-                        <div class="mobile-lg:grid-col-auto">
-                            <img class="usa-footer__logo-img" src="~/images/gsa/nav-logo.jpg" alt="GAS logo">
-                        </div>
-                        <div class="mobile-lg:grid-col-auto">
-                            <h3 class="usa-footer__logo-heading">General Services Administration</h3>
-                        </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="usa-footer usa-footer--slim">
+            <div class="grid-container usa-footer__return-to-top">
+                <a href="#top">Return to top</a>
+            </div>
+            <div class="usa-footer__primary-section">
+                <div class="usa-footer__primary-container grid-row">
+                    <div class="mobile-lg:grid-col-8">
+                        <nav class="usa-footer__nav">
+                            <ul class="grid-row grid-gap">
+                                <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
+                                    <a class="usa-footer__primary-link" href="https://www.gsa.gov/" target="_blank">GSA.gov</a>
+                                </li>
+                                <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
+                                    <a class="usa-footer__primary-link" href="https://www.gsa.gov/about-us/organization/office-of-the-chief-information-officer/office-of-corporate-it-services" target="_blank">Corporate IT Services</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <div class="usa-footer__contact-links mobile-lg:grid-col-6">
-                        <h3 class="usa-footer__contact-heading">Agency Contact Info.</h3>
+                    <div class="mobile-lg:grid-col-4">
                         <address class="usa-footer__address">
-                            <div class="usa-footer__contact-info grid-row grid-gap">
-                                <div class="grid-col-auto">
-                                    <a href="tel:1-800-555-5555">(800) CALL-FMIT</a>
-                                </div>
-                                <div class="grid-col-auto">
-                                    <a href="mailto:support@gsa.gov">support@gsa.gov</a>
-                                </div>
-                            </div>
+                            <ul class="grid-row grid-gap">
+                                <li class="mobile-lg:grid-col-12 desktop:grid-col-auto usa-footer__primary-content">
+                                    <a class="usa-footer__primary-link" href="mailto:bdf.apps@gsa.gov">Email Us</a>
+                                </li>
+                            </ul>
                         </address>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
-
-
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/uswds/js/uswds.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"></script>
-        <script src="~/uswds/js/uswds.min.js"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+        </footer>
+    </div>
 
     @RenderSection("Scripts", required: false)
+    @await Html.PartialAsync("_SessionExpireNotification")
 </body>
 </html>

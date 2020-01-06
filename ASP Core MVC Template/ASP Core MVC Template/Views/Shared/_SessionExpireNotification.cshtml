@@ -1,0 +1,116 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Kendo.Mvc
+@using Kendo.Mvc.UI
+@using Microsoft.Extensions.Options
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration _configuration
+
+
+
+@if (Context.User.Identity.IsAuthenticated)
+{
+
+    @(Html.Kendo().Window()
+        .Name("SessionExpireNotification")
+        .Title("Session Time Alert")
+        .Modal(true)
+        .Content(@<text>
+            <table border="0">
+                <tr style="border:none; height:75px">
+                    <td style="border:none">                       
+                            <img class="usa-header-slim-logo-img" src="~/images/gsa/nav-logo.jpg" alt="" hspace="5">                        
+                    </td>
+                    <td style="border:none" valign="bottom">                        
+                            Your session is about to expire. You will be automatically signed out in                                           
+                    </td>
+                </tr>
+            </table>
+            <h2 style="margin-top: 0">
+                <span id="logout-counter-span">0@_configuration.GetSection("CookieAuthentication")["SessionExpireNotificationMinutes"]):00</span>
+            </h2>
+            <p>
+                To continue your session, select <strong>Stay Signed In</strong>.
+            </p>
+            <p>
+                <button id="stay-logged-in-button" type="button" class="btn btn-primary">
+                    Stay Signed In
+                </button>
+
+                <button id="signout-button" type="button" class="btn btn-default">
+                    Sign out
+                </button>
+            </p>
+
+            </text>)
+            .Width(450)
+            .Visible(false)
+            .Events(ev => ev.Close("onSessionExpireNotificationClose"))
+    )
+
+    <script>
+
+        var notificationInterval,
+            logoutInterval,
+            logoutCounterSpan;
+
+        function startNotificationCounter() {
+            var counter = @_configuration.GetSection("CookieAuthentication")["ExpireMinutes"];
+            notificationInterval = setInterval(function() {
+                    counter--;
+                    if (counter === @_configuration.GetSection("CookieAuthentication")["SessionExpireNotificationMinutes"]) {
+                        $("#SessionExpireNotification").data("kendoWindow").center().open();
+                                startLogoutCounter();
+                            }
+                    },
+                    60000);
+        }
+
+        function startLogoutCounter() {
+            var counter = @_configuration.GetSection("CookieAuthentication")["SessionExpireNotificationMinutes"] * 60;
+            logoutInterval = setInterval(function() {
+                    counter--;
+                    if (counter < 0) {
+                       window.location.href='@Url.Action("LogoutAsync", "Login")'
+                    } else {
+                        var m = Math.floor(counter / 60);
+                        var s = Math.floor(counter % 60);
+                        var mDisplay = m < 10 ? "0" + m : m;
+                        var sDisplay = s < 10 ? "0" + s : s;
+                        logoutCounterSpan.text(mDisplay + ":" + sDisplay);
+                    }
+                },
+                1000);
+        }
+
+        function resetCounters() {
+            clearInterval(notificationInterval);
+            clearInterval(logoutInterval);
+            logoutCounterSpan.text("0@_configuration.GetSection("CookieAuthentication")["SessionExpireNotificationMinutes"]:00");
+    startNotificationCounter();
+}
+
+function onSessionExpireNotificationClose() {
+    resetCounters();
+}
+
+        $(function() {
+    logoutCounterSpan = $("#logout-counter-span");
+
+    startNotificationCounter();
+
+            $(document).ready(function () {
+                $("#stay-logged-in-button").bind("click", function () {
+
+            resetCounters();
+                        $("#SessionExpireNotification").data("kendoWindow").center().close();
+        });
+    });
+
+            $("#signout-button").bind("click", function () {
+        window.location.href='@Url.Action("LogoutAsync", "Login")'
+                    //$("#logoutForm").submit();
+            });
+});
+
+  </script>
+}

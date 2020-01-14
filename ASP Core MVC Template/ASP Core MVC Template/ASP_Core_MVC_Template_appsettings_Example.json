@@ -1,0 +1,22 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "SecureAuth": {
+    "RedirectURL": "<insert redirect URL from SecureAuth metadata",
+    "TokenName": "<set a token name that makes sense for your app>",
+    "ValidationKey": "<insert the validation key that the SecureAuth team sent you>",
+    "DecryptionKey": "<insert the decryption key that the SecureAuth team sent you>"
+  },
+  "FMDataAPIURL": "https://localhost:50002",
+  "CookieAuthentication": {
+    "ExpireMinutes": "6",
+    "SessionExpireNotificationMinutes": "5"
+  }
+}

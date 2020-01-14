@@ -13,14 +13,14 @@ namespace ASP_Core_MVC_Template.Controllers
     {
         private readonly IFMUtilityConfigService _configService;
         private readonly ILogger<HomeController> _logger;
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
         public HomeController(IFMUtilityConfigService configService, ILogger<HomeController> logger,
-            IStringLocalizer<SharedResource> localizer)
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _configService = configService;
             _logger = logger;
-            _localizer = localizer;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         public IActionResult Index()
@@ -62,7 +62,7 @@ namespace ASP_Core_MVC_Template.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "COREADMIN,COREUSER")]
         public IActionResult LoggedIn()
         {
             return View();

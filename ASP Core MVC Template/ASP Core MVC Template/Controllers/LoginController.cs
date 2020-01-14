@@ -11,27 +11,32 @@ using AspNetCore.LegacyAuthCookieCompat;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using ASP_Core_MVC_Template.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using GSA.FM.Utility.Core.Interfaces;
 
 namespace ASP_Core_MVC_Template.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
         private readonly ILogger<LoginController> _logger;
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+        private readonly IFMUtilityDataAPIService _dataAPIService;
 
         public LoginController(IWebHostEnvironment env, IConfiguration configuration,
-            ILogger<LoginController> logger, IStringLocalizer<SharedResource> localizer)
+            ILogger<LoginController> logger, IStringLocalizer<SharedResource> sharedLocalizer,
+            IFMUtilityDataAPIService dataAPIService)
         {
             _env = env;
             _configuration = configuration;
             _logger = logger;
-            _localizer = localizer;
+            _sharedLocalizer = sharedLocalizer;
+            _dataAPIService = dataAPIService;
         }
 
+        [Route("Login/LoginAsync")]
         public async Task<IActionResult> LoginAsync()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
@@ -40,7 +45,7 @@ namespace ASP_Core_MVC_Template.Controllers
                 if (_env.IsDevelopment())
                 {
                     // Create principal and authorize.
-                    var principal = CreateIdentity("caseykscott", "casey.scott@gsa.gov");
+                    var principal = CreateIdentity("williammdinkel", "william.dinkel@gsa.gov");
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                     // Now redirect to determine this user's roles.
@@ -57,6 +62,7 @@ namespace ASP_Core_MVC_Template.Controllers
             else return RedirectToAction("Index", "Home");
         }
 
+        [Route("Login/LogoutAsync")]
         public async Task<IActionResult> LogoutAsync()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -121,37 +127,41 @@ namespace ASP_Core_MVC_Template.Controllers
 
             // Append our common error message.
             ViewData[viewDataErrorKey] = String.Format("{0} {1}", ViewData[viewDataErrorKey],
-                _localizer["CaptureAndEmailUsMessage"]);
+                _sharedLocalizer["CaptureAndEmailUsMessage"]);
             return View();
         }
 
         [Authorize]
-        public IActionResult CheckCAAM()
+        public async Task<IActionResult> CheckCAAM()
         {
             // Use our utility Data API service to check for roles.
-            var dataAPI = new DataAPI(_logger);
-            var endpoint = "/v0/queries/CAAM/execute/rolesByApp?USER=" + User.Identity.Name.ToUpper()
-                 + "&APP=CIR";
-            var caamAPIResult = dataAPI.ExecuteQuery(endpoint, _configuration, Request, _env.IsDevelopment()).Result;
-            var errorMessage = dataAPI.ErrorFromResult(caamAPIResult);
+            try
+            {
+                var caamRoles = _dataAPIService.GetCAAMRoles("Core Template", User.Identity.Name,
+                    Request.Cookies[_configuration["SharedCookieName"]]);
 
-            if (!String.IsNullOrEmpty(errorMessage))
-            {
-                _logger.LogError(errorMessage);
-                return RedirectToAction("LogoutAsync", "Login");
-            }
+                if (caamRoles.Count > 0)
+                {
+                    var roleName = caamRoles[0];
+                    _logger.LogInformation("User " + User.Identity.Name + " has the " + roleName + " role.");
 
-            // Convert JSON data array to model list.
-            var queryData = dataAPI.QueryResultToDict(caamAPIResult);
-            if (queryData.Count > 0)
-            {
-                _logger.LogInformation("User " + User.Identity.Name + " has the following roles:");
-                return RedirectToAction("LoggedIn", "Home");
+                    // Create a new user principal with the role.
+                    var principal = CreateIdentity(User.Identity.Name, User.FindFirst(ClaimTypes.Email).Value, roleName);
+                    // Re-Authenticate using the identity.
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                    return RedirectToAction("LoggedIn", "Home");
+                }
+                else
+                {
+                    // No roles found. Log out.
+                    _logger.LogInformation("User " + User.Identity.Name + " has no valid roles.");
+                    return RedirectToAction("LogoutAsync", "Login");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // No roles found. Log out.
-                _logger.LogInformation("User " + User.Identity.Name + " has no valid roles.");
+                _logger.LogError(ex.Message);
                 return RedirectToAction("LogoutAsync", "Login");
             }
         }

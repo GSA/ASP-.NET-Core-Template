@@ -53,6 +53,26 @@ namespace ASP_Core_MVC_Template
             services.AddSingleton<IFMUtilityPasswordService>(client => new FMUtilityPasswordService(client.GetService<ILogger<FMUtilityPasswordService>>(),
                     client.GetService<IHttpClientFactory>()));
 
+            // Initialize the FM Data API service as a singleton.
+            services.AddHttpClient<IFMUtilityDataAPIService>("FMUtilityDataAPIService", client =>
+            {
+                // Tell the service where we expect the FM Data API to be found.
+                client.BaseAddress = new Uri(Configuration["FMDataAPIURL"]);
+            })
+                .ConfigurePrimaryHttpMessageHandler(() =>
+                {
+                    var handler = new HttpClientHandler();
+                    // Don't use cookies at the handler level. We set the authorization cookie at the client.
+                    handler.UseCookies = false;
+                    // Disable SSL check on FM Data API requests because it will be running on the same server as our app.
+                    // This must be removed if the API is running on a separate server.
+                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                    return handler;
+                });
+            services.AddSingleton<IFMUtilityDataAPIService>(client => new FMUtilityDataAPIService(client.GetService<ILogger<FMUtilityDataAPIService>>(),
+                client.GetService<IConfiguration>(), client.GetService<IHttpClientFactory>(),
+                _hostingEnvironment.IsDevelopment()));
+
             // Configure cookie policy.
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -81,7 +101,11 @@ namespace ASP_Core_MVC_Template
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 options.Cookie.Name = Configuration["SharedCookieName"];
                 options.LoginPath = "/Home/Index";
+                options.AccessDeniedPath = "/Home/Index"; // Point this to a custom view to give the user more detail.
             });
+
+            // Let configuration be injected.
+            services.AddSingleton(Configuration);
 
             // Add the localization services to the services container
             services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -106,7 +130,7 @@ namespace ASP_Core_MVC_Template
                 options.SupportedUICultures = supportedCultures;
             });
 
-            services.AddMvc()
+            services.AddControllersWithViews()
                 // Add support for finding localized views, based on file name suffix, e.g. Index.fr.cshtml
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 // Add support for localizing strings in data annotations (e.g. validation messages) via the
@@ -175,6 +199,11 @@ namespace ASP_Core_MVC_Template
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
+                // We need MapControllers() to map routes that don't have resulting views (such as redirects).
+                // These must be decorated with [Route()] attributes in the controller.
+                endpoints.MapControllers();
+
+                // Default route.
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

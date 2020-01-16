@@ -61,7 +61,7 @@ These instructions will get you a copy of the project up and running on your loc
 17. Edit *Models\\ErrorViewModel.cs* as follows:
     - Change *namespace ASP_Core_MVC_Template.Models* to *namespace \<YOURPROJECTNAMESPACE\>.Models*
 18. If using roles from *CAAM*, edit *Views\\Home\\LoggedIn.cshtml* as follows:
-    - Change *Context.User.IsInRole("COREADMIN")* to use a role applicable to your applications.
+    - Change *Context.User.IsInRole("COREADMIN")* to use a role applicable to your project.
 19. Edit *Views\\Home\\Warning.cshtml* as follows:
     - Change *\<title\>Warning - CAAM Web Template\</title\>* to *\<title\>Warning - \<YOURPROJECT\>\</title\>*
 20. Edit *Views\\Shared\\\_Layout.cshtml* as follows:

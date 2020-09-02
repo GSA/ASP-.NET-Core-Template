@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "SecureAuth Login";
+}
+
+    <div class="text-center">
+        @if (ViewData["secureAuthError"] != null)
+        {
+            <h1 class="display-4 text-red">SecureAuth Login Error</h1>
+            <p>@ViewData["secureAuthError"].ToString()</p>
+        }
+    </div>
+

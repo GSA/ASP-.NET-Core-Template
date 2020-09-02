@@ -19,6 +19,20 @@ namespace ASP_Core_MVC_Template
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var appsettingsDirectory = Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY");
+                    if (String.IsNullOrEmpty(appsettingsDirectory))
+                    {
+                        // Default to appsettings within the app.
+                        string[] paths = { hostingContext.HostingEnvironment.ContentRootPath, "appsettings" };
+                        appsettingsDirectory = Path.Combine(paths);
+                    }
+                    config.SetBasePath(appsettingsDirectory);
+                    config.AddJsonFile("ASP_Core_MVC_Template_appsettings.json", optional: false, reloadOnChange: true);
+                    // Shared config for authentication.
+                    config.AddJsonFile("GSA_FM_Web_Apps.json", optional: false, reloadOnChange: true);
+                })
                 .UseStartup<Startup>();
     }
 }

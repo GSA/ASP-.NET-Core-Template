@@ -4,6 +4,67 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 5px;
     padding-bottom: 20px;
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.app-header {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+h1 {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 27px;
+}
+
+h2 {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+h3 {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+h4 {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 21px;
+}
+
+h5 {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.btn {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+label {
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    margin-top: 5px;
 }
 
 /* Wrapping element */
@@ -11,6 +72,11 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+/* all caps class */
+.allcaps {
+    text-transform: uppercase;
 }
 
 /* Carousel */
@@ -34,5 +100,268 @@ body {
     /* Hide captions */
     .carousel-caption {
         display: none;
+    }
+}
+
+/* Overlay for disabling full page when Data API is not running. */
+#overlay {
+    background-color: rgba(0,0,0,.2);
+    z-index: 999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+​
+/* PDF Export styles
+-------------------------------------------------- */
+.pdf-page {
+    position: relative;
+    margin: 0 auto;
+    padding: .4in .3in;
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.3);
+    box-sizing: border-box;
+}
+
+/* Kendo styles
+-------------------------------------------------- */
+
+span.k-autocomplete .k-state-default, span.k-autocomplete.k-state-focused, span.k-autocomplete .k-state-hover {
+    height: 35px !important;
+}
+
+.k-autocomplete .k-input,
+.k-autocomplete.k-state-focused .k-input {
+    height: 30px !important;
+    border: solid 1px #5B616B;
+}
+
+.k-combobox {
+    height: 35px !important;
+}
+
+    .k-combobox .k-input {
+        height: 30px !important;
+    }
+
+span.k-dropdown, .k-dropdown .k-state-hover, .k-dropdown .k-state-default, .k-dropdown .k-state-focused {
+    height: 35px !important;
+    border: solid 1px #5B616B;
+    background-color: #fff;
+}
+
+.k-dropdown .k-state-default, .k-dropdown .k-state-hover, .k-dropdown .k-state-focused {
+    background-color: transparent;
+    border: none;
+}
+
+.k-dropdown .k-input, .k-dropdown .k-input k-state-hover, .k-dropdown .k-input k-state-focused {
+    height: 30px !important;
+    border: none;
+    /*padding-bottom: 12px;
+    background-color: #f5f5f5 !important;*/
+}
+/*.k-dropdown-wrap {
+    padding-bottom: 12px;
+    background-color: #f5f5f5 !important;
+}*/
+.k-dropdown .k-select .k-state-default, .k-dropdown .k-select .k-state-hover, .k-dropdown .k-select .k-state-focused {
+    height: 30px !important;
+    border: none;
+}
+
+.k-textbox, .k-textbox:focus {
+    border: solid 1px #5B616B;
+}
+
+    .k-textbox, .k-textbox:hover {
+        border: solid 1px #5B616B;
+    }
+
+/*.k-dropdown, .k-dropdown-wrap {
+    display: inline-block;
+}
+
+.k-input {
+    background-color: #f5f5f5 !important;
+}*/
+
+.k-datepicker {
+    /*height: 35px !important;*/
+    border: solid 1px #5B616B;
+    background-color: #fff;
+}
+
+    .k-datepicker .k-input {
+        background: #fff;
+    }
+
+.k-grid td {
+    padding: 0.1em 1em 0.1em 1em;
+}
+
+.k-header {
+    background-color: #112e51;
+}
+
+.k-grid .k-header .k-button {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #0069b4;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    padding: 1rem 2rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+    .k-grid .k-header .k-button:hover {
+        background-color: #1e4f94;
+        border-bottom: 0;
+        color: white;
+        text-decoration: none;
+    }
+
+.k-grid-header .k-header, .k-grid-header .k-link:link {
+    background-color: #f1f1f1;
+    color: #212121;
+    font-family: "Source Sans Pro Web", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+
+.k-textbox {
+    height: 35px !important;
+}
+
+.k-upload {
+    min-width: 450px;
+}
+
+div.k-dropzone em {
+    display: inline;
+    visibility: visible;
+    margin-right: 20px;
+}
+
+.k-widget.k-tooltip-validation.k-invalid-msg {
+    background-color: #ffffff;
+    color: #b50909; /* uswds error text color */
+    border: solid 1px #b50909;
+    padding: 5px;
+    margin-bottom: 5px;
+    max-width: 430px;
+}
+
+.k-tooltip-validation .k-callout-n {
+    border-bottom-color: #b50909;
+}
+
+/*Cross-Browser - in Chrome (not IE), kendo validation messages are displayed 
+content the same line aside control if window is wide enough.*/
+span.k-widget.k-tooltip-validation.k-invalid-msg {
+    display: table;
+}
+
+/* GSA_alert styles */
+.k-widget.k-window.k-dialog.k-alert {
+    max-width: 500px;
+}
+
+.k-window-titlebar.k-dialog-titlebar.k-header {
+    padding: 0px;
+}
+
+.k-window-title.k-dialog-title {
+    background-color: #eeeeee;
+    padding: 10px;
+    width: 100%;
+}
+
+.k-dialog > .k-header {
+    background-color: #eeeeee;
+    padding: 10px;
+    width: 100%;
+}
+
+/* FMIT Common controls styles
+-------------------------------------------------- */
+.modal-header {
+    cursor: move;
+}
+
+.modalXl {
+    width: 900px;
+    margin-left: 10%;
+}
+
+/* Grid formatting styles */
+.negative-currency {
+    color: red;
+}
+/* Replace pager glyph icons after 508 formatting. */
+.k-i-arrow-end-left::before, .k-i-arrow-end-right::before,
+.k-i-arrow-60-left::before, .k-i-arrow-60-right::before {
+    font-family: WebComponentsIcons;
+}
+
+/* Logo Header with over-ride */
+.usa-header-slim-logo-img {
+    float: left;
+    max-width: 40px;
+}
+
+.usa-logo__text {
+    line-height: 0;
+    padding-top: 10px;
+}
+
+.usa-footer-contact_info:hover {
+    text-decoration: none;
+}
+
+@media all and (min-width: 64em) {
+    .usa-header--basic .usa-navbar {
+        width: 50%;
+    }
+}
+
+.usa-footer .usa-footer__primary-link {
+    text-decoration: underline;
+    padding-bottom: 0px;
+}
+
+.usa-footer .usa-footer__primary-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 951px) {
+    .usa-header-slim-logo-img {
+        max-width: 60px;
+    }
+
+    .usa-logo__text {
+        line-height: 0;
+        padding-top: 30px;
     }
 }

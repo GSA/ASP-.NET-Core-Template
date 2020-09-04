@@ -53,11 +53,20 @@ namespace ASP_Core_MVC_Template
             services.AddSingleton<IFMUtilityPasswordService>(client => new FMUtilityPasswordService(client.GetService<ILogger<FMUtilityPasswordService>>(),
                     client.GetService<IHttpClientFactory>()));
 
+            // Add Cache services
+            services.AddMemoryCache();
+
+            // Initialize the Utility audit service as a singleton.
+            services.AddSingleton<IFMUtilityAuditService>(client => new FMUtilityAuditService(client.GetService<ILogger<FMUtilityAuditService>>(),
+                client.GetService<IFMUtilityConfigService>(), client.GetService<IFMUtilityPasswordService>(),
+                Configuration["Databases:Audit:Database"], Configuration["Databases:Audit:Username"]));
+
             // Initialize the FM Data API service as a singleton.
+            var dataAPIURL = Configuration["FMDataAPIURL"];
             services.AddHttpClient<IFMUtilityDataAPIService>("FMUtilityDataAPIService", client =>
             {
                 // Tell the service where we expect the FM Data API to be found.
-                client.BaseAddress = new Uri(Configuration["FMDataAPIURL"]);
+                client.BaseAddress = new Uri(dataAPIURL);
             })
                 .ConfigurePrimaryHttpMessageHandler(() =>
                 {
@@ -71,7 +80,7 @@ namespace ASP_Core_MVC_Template
                 });
             services.AddSingleton<IFMUtilityDataAPIService>(client => new FMUtilityDataAPIService(client.GetService<ILogger<FMUtilityDataAPIService>>(),
                 client.GetService<IConfiguration>(), client.GetService<IHttpClientFactory>(),
-                _hostingEnvironment.IsDevelopment()));
+                dataAPIURL.Contains("localhost")));
 
             // Configure cookie policy.
             services.Configure<CookiePolicyOptions>(options =>
@@ -81,13 +90,6 @@ namespace ASP_Core_MVC_Template
 
             // Allow custom components to get to the HTTP context (i.e., our dbContext).
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            // Add data protection to enable cookie sharing.
-            var appsettingsDirectory = Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY");
-            var keyRingDirectoryInfo = new DirectoryInfo(Path.Combine(appsettingsDirectory, "KeyRing"));
-            services.AddDataProtection()
-                .PersistKeysToFileSystem(keyRingDirectoryInfo)
-                .SetApplicationName(Configuration["SharedApplicationName"]);
 
             // Cookie authentication
             services.AddAuthentication(options =>

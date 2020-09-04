@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Login Failed";
+}
+
+    <div class="text-center">
+        @if (TempData["loginFailedError"] != null)
+        {
+            <h1 class="display-4 text-red">Login Failed</h1>
+            <p>@TempData["loginFailedError"].ToString()</p>
+        }
+    </div>
+

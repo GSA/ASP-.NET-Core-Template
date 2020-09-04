@@ -287,16 +287,6 @@ span.k-widget.k-tooltip-validation.k-invalid-msg {
     max-width: 500px;
 }
 
-.k-window-titlebar.k-dialog-titlebar.k-header {
-    padding: 0px;
-}
-
-.k-window-title.k-dialog-title {
-    background-color: #eeeeee;
-    padding: 10px;
-    width: 100%;
-}
-
 .k-dialog > .k-header {
     background-color: #eeeeee;
     padding: 10px;

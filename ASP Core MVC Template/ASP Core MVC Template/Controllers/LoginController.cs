@@ -24,16 +24,18 @@ namespace ASP_Core_MVC_Template.Controllers
         private readonly ILogger<LoginController> _logger;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IFMUtilityDataAPIService _dataAPIService;
+        private readonly IFMUtilityAuditService _auditService;
 
         public LoginController(IWebHostEnvironment env, IConfiguration configuration,
             ILogger<LoginController> logger, IStringLocalizer<SharedResource> sharedLocalizer,
-            IFMUtilityDataAPIService dataAPIService)
+            IFMUtilityDataAPIService dataAPIService, IFMUtilityAuditService auditService)
         {
             _env = env;
             _configuration = configuration;
             _logger = logger;
             _sharedLocalizer = sharedLocalizer;
             _dataAPIService = dataAPIService;
+            _auditService = auditService;
         }
 
         [Route("Login/LoginAsync")]
@@ -54,7 +56,7 @@ namespace ASP_Core_MVC_Template.Controllers
                 else
                 {
                     // Redirect to SecureAuth based on parameters in the config file.
-                    var samlEndpoint = Startup.Configuration.GetValue<string>("SecureAuth:RedirectURL");
+                    var samlEndpoint = _configuration["SecureAuth:RedirectURL"];
                     return Redirect(samlEndpoint);
                 }
             }
@@ -62,11 +64,36 @@ namespace ASP_Core_MVC_Template.Controllers
             else return RedirectToAction("Index", "Home");
         }
 
+        [Route("Login/LoginFailed")]
+        public IActionResult LoginFailed()
+        {
+            return View();
+        }
+
         [Route("Login/LogoutAsync")]
         public async Task<IActionResult> LogoutAsync()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            
+            // Audit logout.
+            if (User.Identity.IsAuthenticated)
+            {
+                await _auditService.WriteUserEvent("DEMO Template", User.Identity.Name, UserEvent.Logoff);
+            }
+            
             return RedirectToAction("Index", "Home");
+        }
+
+        [Route("Login/SessionTimeoutAsync")]
+        public async Task<IActionResult> SessionTimeoutAsync()
+        {
+            // Audit logout.
+            if (User.Identity.IsAuthenticated)
+            {
+                await _auditService.WriteUserEvent("DEMO Template", User.Identity.Name, UserEvent.SessionTimeout);
+            }
+
+            return RedirectToAction("LogoutAsync", "Login");
         }
 
         public async Task<IActionResult> ExternalLoginCallback()
@@ -74,7 +101,7 @@ namespace ASP_Core_MVC_Template.Controllers
             // This is the SecureAuth callback, which is reached by a 302. The token that
             // SecureAuth sends is a cookie.
             var viewDataErrorKey = "secureAuthError";
-            var tokenName = Startup.Configuration.GetValue<string>("SecureAuth:TokenName");
+            var tokenName = _configuration["SecureAuth:TokenName"];
             string token = Request.Cookies[tokenName];
 
             if (token != null)
@@ -82,6 +109,13 @@ namespace ASP_Core_MVC_Template.Controllers
                 // Decrypt the token with our SecureAuth keys.
                 var validationKey = _configuration["SecureAuth:ValidationKey"];
                 var decryptionKey = _configuration["SecureAuth:DecryptionKey"];
+
+                // Default to Framework45 for compatibility mode.
+                CompatibilityMode compatibilityMode = CompatibilityMode.Framework45;
+                if (_configuration.GetValue<bool>("SecureAuth:UseCompatibilityMode20SP2"))
+                {
+                    compatibilityMode = CompatibilityMode.Framework20SP2;
+                }
 
                 if (validationKey == null || decryptionKey == null)
                 {
@@ -94,7 +128,7 @@ namespace ASP_Core_MVC_Template.Controllers
 
                     try
                     {
-                        var legacyFormsAuthenticationTicketEncryptor = new LegacyFormsAuthenticationTicketEncryptor(decryptionKeyBytes, validationKeyBytes, ShaVersion.Sha1);
+                        var legacyFormsAuthenticationTicketEncryptor = new LegacyFormsAuthenticationTicketEncryptor(decryptionKeyBytes, validationKeyBytes, ShaVersion.Sha1, compatibilityMode);
                         FormsAuthenticationTicket decryptedTicket = legacyFormsAuthenticationTicketEncryptor.DecryptCookie(token);
 
                         // If already authenticated and usernames don't match, log out.
@@ -134,11 +168,13 @@ namespace ASP_Core_MVC_Template.Controllers
         [Authorize]
         public async Task<IActionResult> CheckCAAM()
         {
+            var viewDataErrorKey = "loginFailedError";
+
             // Use our utility Data API service to check for roles.
             try
             {
-                var caamRoles = _dataAPIService.GetCAAMRoles("Core Template", User.Identity.Name,
-                    Request.Cookies[_configuration["SharedCookieName"]]);
+                var caamRoles = _dataAPIService.GetCAAMRolesWithKey("Core Template", User.Identity.Name,
+                    _configuration["FMDataAPIKey"]);
 
                 if (caamRoles.Count > 0)
                 {
@@ -150,19 +186,39 @@ namespace ASP_Core_MVC_Template.Controllers
                     // Re-Authenticate using the identity.
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+                    // Audit successful logon.
+                    await _auditService.WriteUserEvent("DEMO Template", User.Identity.Name, UserEvent.LogonSuccessful);
+
                     return RedirectToAction("LoggedIn", "Home");
                 }
                 else
                 {
-                    // No roles found. Log out.
-                    _logger.LogInformation("User " + User.Identity.Name + " has no valid roles.");
-                    return RedirectToAction("LogoutAsync", "Login");
+                    // No roles found. Log the failure.
+                    var message = "User " + User.Identity.Name + " has no valid roles.";
+                    _logger.LogInformation(message);
+                    TempData[viewDataErrorKey] = message;
+
+                    // Log out.
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    // Audit failed logon.
+                    await _auditService.WriteUserEvent("DEMO Template", User.Identity.Name, UserEvent.LogonFailed);
+
+                    return RedirectToAction("LoginFailed", "Login");
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return RedirectToAction("LogoutAsync", "Login");
+                TempData[viewDataErrorKey] = ex.Message;
+
+                // Log out.
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // Audit failed logon.
+                await _auditService.WriteUserEvent("DEMO Template", User.Identity.Name, UserEvent.LogonFailed);
+
+                return RedirectToAction("LoginFailed", "Login");
             }
         }
 

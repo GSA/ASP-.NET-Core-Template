@@ -26,5 +26,13 @@
   "CookieAuthentication": {
     "ExpireMinutes": "30",
     "SessionExpireNotificationMinutes": "5"
+  },
+  "Footer": {
+    "LeftLink": "https://www.gsa.gov",
+    "LeftLabel": "GSA.gov",
+    "CenterLink": "https://insite.gsa.gov/organizations/staff-offices/office-of-gsa-it/gsa-it-organizations/office-of-corporate-it-services-ic",
+    "CenterLabel": "Corporate IT Services",
+    "RightLink": "mailto:bdf.apps@gsa.gov",
+    "RightLabel" : "Email Us"
   }
 }

@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
 <!DOCTYPE html>
 <html>
@@ -133,10 +135,10 @@
                         <nav class="usa-footer__nav">
                             <ul class="grid-row grid-gap">
                                 <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-                                    <a class="usa-footer__primary-link" href="https://www.gsa.gov/" target="_blank">GSA.gov</a>
+                                    <a class="usa-footer__primary-link" href="@Configuration["Footer:LeftLink"]" target="_blank">@Configuration["Footer:LeftLabel"]</a>
                                 </li>
                                 <li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-                                    <a class="usa-footer__primary-link" href="https://www.gsa.gov/about-us/organization/office-of-the-chief-information-officer/office-of-corporate-it-services" target="_blank">Corporate IT Services</a>
+                                    <a class="usa-footer__primary-link" href="@Configuration["Footer:CenterLink"]" target="_blank">@Configuration["Footer:CenterLabel"]</a>
                                 </li>
                             </ul>
                         </nav>
@@ -145,7 +147,7 @@
                         <address class="usa-footer__nav">
                             <ul class="grid-row grid-gap">
                                 <li class="mobile-lg:grid-col-12 desktop:grid-col-auto usa-footer__primary-content">
-                                    <a class="usa-footer__primary-link" href="mailto:bdf.apps@gsa.gov">Email Us</a>
+                                    <a class="usa-footer__primary-link" href="@Configuration["Footer:RightLink"]">@Configuration["Footer:RightLabel"]</a>
                                 </li>
                             </ul>
                         </address>

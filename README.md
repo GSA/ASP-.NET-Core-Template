@@ -1,6 +1,13 @@
 # ASP .NET Core Project Template
 ASP .NET Core Project Template for GSA FM IT team.  Every one should be able to use this templae to build a ASP .NET Core web app with PostgreSQL database and beautifully looking U.S. Web Deisgn Standard UI. 
 
+You can also downlod the ASP-.NET-Core-Template git projet *Docker-Image* file to run and test it ,instantly throw  Docker-Container.
+Build-Image URL:https://hub.docker.com/r/asadzoot/asp.netcoreimage
+###Docker Pull and Run Command
+docker pull asadzoot/asp.netcoreimage
+docker container run -d --name ASP_.NET_Core_Template -p 5000:80 asadzoot/asp.netcoreimage
+
+
 ### Key Functions 
 1. Landing page design with [U.S. Web Deisgn System 2](https://designsystem.digital.gov).
 2. Cross-platform.

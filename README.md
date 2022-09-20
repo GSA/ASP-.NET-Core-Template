@@ -11,9 +11,8 @@ ASP .NET Core Project Template for GSA FM IT team.  Every one should be able to 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-- Visual Studio 2017 or higher 
-- .NET Core SDK 2.1.x 
-- Entity Framework Core 2.1
+- Visual Studio 2022 or higher 
+- .NET 6.x SDK  
 - Npgsql.EntityFrameworkCore.PostgreSQL 2.1.1.1 (https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/)
 
 ### Installing
